@@ -1232,6 +1232,158 @@
   ::-webkit-scrollbar-track { background: var(--cream); }
   ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
  
+  /* ─── NAME SETUP SCREEN ─── */
+  .name-setup-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #1a0f05 0%, #2c1f0e 40%, #1e150a 100%);
+    z-index: 1300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .name-setup-screen.open { opacity: 1; pointer-events: all; }
+  .name-setup-screen.closing {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+ 
+  /* Floating particles */
+  .name-setup-screen::before {
+    content: '✦ ✦ ✦';
+    position: absolute;
+    top: 10%; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 1.2em;
+    color: rgba(201,149,58,0.25);
+    animation: floatPulse 3s ease-in-out infinite;
+  }
+  .name-setup-screen::after {
+    content: '✦ ✦ ✦';
+    position: absolute;
+    bottom: 10%; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 1.2em;
+    color: rgba(201,149,58,0.25);
+    animation: floatPulse 3s 1.5s ease-in-out infinite;
+  }
+  @keyframes floatPulse {
+    0%,100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.7; transform: translateX(-50%) translateY(-6px); }
+  }
+ 
+  .name-setup-card {
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .name-setup-cross {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: fadeDown 0.7s 0.2s ease both;
+  }
+  .name-setup-eyebrow {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.7;
+    margin-bottom: 14px;
+    animation: fadeDown 0.7s 0.3s ease both;
+  }
+  .name-setup-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: #f5ddb0;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    animation: fadeDown 0.7s 0.4s ease both;
+  }
+  .name-setup-subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(212,185,138,0.7);
+    margin-bottom: 36px;
+    line-height: 1.6;
+    animation: fadeDown 0.7s 0.5s ease both;
+  }
+  .name-setup-input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+    animation: fadeDown 0.7s 0.6s ease both;
+  }
+  .name-setup-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(201,149,58,0.35);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #f5ddb0;
+    text-align: center;
+    outline: none;
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
+  }
+  .name-setup-input::placeholder {
+    color: rgba(212,185,138,0.35);
+    font-style: italic;
+  }
+  .name-setup-input:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.09);
+    box-shadow: 0 0 0 4px rgba(201,149,58,0.12);
+  }
+  .name-setup-btn {
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    padding: 16px 24px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--amber));
+    color: white;
+    box-shadow: 0 6px 28px rgba(201,149,58,0.35);
+    transition: all 0.3s;
+    letter-spacing: 0.03em;
+    animation: fadeDown 0.7s 0.7s ease both;
+    margin-top: 6px;
+  }
+  .name-setup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px rgba(201,149,58,0.45);
+  }
+  .name-setup-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .name-setup-verse {
+    margin-top: 36px;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: rgba(201,149,58,0.5);
+    line-height: 1.7;
+    animation: fadeDown 0.7s 0.8s ease both;
+  }
+ 
   /* ─── WELCOME MODAL ─── */
   .welcome-modal-overlay {
     position: fixed;
@@ -1521,6 +1673,38 @@
 </style>
 </head>
 <body>
+ 
+<!-- Name Setup Screen -->
+<div class="name-setup-screen" id="nameSetupScreen">
+  <div class="name-setup-card">
+    <span class="name-setup-cross">✝</span>
+    <div class="name-setup-eyebrow">Daily Devotional Notes</div>
+    <h1 class="name-setup-title">What shall I<br>call you?</h1>
+    <p class="name-setup-subtitle">
+      Before we begin, let me know who you are —<br>
+      so each day can feel personal and sacred.
+    </p>
+    <div class="name-setup-input-wrap">
+      <input
+        type="text"
+        class="name-setup-input"
+        id="nameSetupInput"
+        placeholder="Enter your name…"
+        maxlength="40"
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') submitName()"
+        oninput="toggleNameBtn()"
+      >
+    </div>
+    <button class="name-setup-btn" id="nameSetupBtn" onclick="submitName()" disabled>
+      ✦ Begin My Journey
+    </button>
+    <div class="name-setup-verse">
+      "Before I formed you in the womb I knew you."<br>
+      — Jeremiah 1:5
+    </div>
+  </div>
+</div>
  
 <!-- Welcome Modal -->
 <div class="welcome-modal-overlay" id="welcomeModal">
@@ -1965,6 +2149,44 @@
     return streak;
   }
  
+  // ── Name Setup Screen ──────────────────────────────────
+  function toggleNameBtn() {
+    const val = $('nameSetupInput').value.trim();
+    $('nameSetupBtn').disabled = val.length === 0;
+  }
+ 
+  function submitName() {
+    const name = $('nameSetupInput').value.trim();
+    if (!name) return;
+ 
+    // Save name to profile
+    const profile = loadProfile();
+    profile.name = name;
+    if (!profile.color) profile.color = '#9e7228';
+    localStorage.setItem('devotional_profile', JSON.stringify(profile));
+    applyProfile(profile);
+ 
+    // Close name screen with fade
+    const screen = $('nameSetupScreen');
+    screen.classList.add('closing');
+    setTimeout(() => {
+      screen.classList.remove('open', 'closing');
+      // Show welcome modal after name screen closes
+      setTimeout(() => showWelcomeModal(true), 200);
+    }, 600);
+  }
+ 
+  function checkFirstTime() {
+    const profile = loadProfile();
+    if (!profile.name) {
+      // First time — show name setup
+      setTimeout(() => $('nameSetupScreen').classList.add('open'), 300);
+    } else {
+      // Returning user — show welcome modal
+      showWelcomeModal(false);
+    }
+  }
+ 
   // ── Welcome Modal ──────────────────────────────────────
   const WELCOME_VERSES = [
     { text: "This is the day the LORD has made; let us rejoice and be glad in it.", ref: "— Psalm 118:24" },
@@ -1976,25 +2198,22 @@
     { text: "Trust in the LORD with all your heart and lean not on your own understanding.", ref: "— Proverbs 3:5" },
   ];
  
-  function showWelcomeModal() {
+  function showWelcomeModal(force = false) {
     const today    = new Date().toISOString().split('T')[0];
     const lastSeen = localStorage.getItem('devotional_welcome_shown');
-    if (lastSeen === today) return; // already shown today
+    if (!force && lastSeen === today) return;
  
     // Pick a verse based on day of year
     const dayIdx = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
     const v = WELCOME_VERSES[dayIdx % WELCOME_VERSES.length];
  
-    // Set verse
-    $('welcomeVerse').textContent  = v.text;
+    $('welcomeVerse').textContent    = v.text;
     $('welcomeVerseRef').textContent = v.ref;
  
-    // Set date label
     $('welcomeDate').textContent = new Date().toLocaleDateString('en-US', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
  
-    // Set greeting with name if available
     const profile = loadProfile();
     const hour    = new Date().getHours();
     const time    = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
@@ -2002,7 +2221,6 @@
       ? `${time}, <span class="welcome-name-highlight">${profile.name}.</span>`
       : `${time}, beloved.`;
  
-    // Show modal
     setTimeout(() => $('welcomeModal').classList.add('open'), 400);
   }
  
@@ -2582,7 +2800,7 @@
     const profile = loadProfile();
     applyProfile(profile);
     if (profile.color) { selectedColor = profile.color; }
-    showWelcomeModal();
+    checkFirstTime();
   });
 </script>
 </body>
