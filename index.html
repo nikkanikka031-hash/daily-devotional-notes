@@ -1232,6 +1232,163 @@
   ::-webkit-scrollbar-track { background: var(--cream); }
   ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
  
+  /* ─── WELCOME MODAL ─── */
+  .welcome-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 31, 14, 0.72);
+    backdrop-filter: blur(6px);
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .welcome-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .welcome-modal {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(44,31,14,0.32);
+    transform: translateY(30px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(.34,1.56,.64,1);
+  }
+  .welcome-modal-overlay.open .welcome-modal { transform: translateY(0) scale(1); }
+  .welcome-modal-top {
+    background: linear-gradient(145deg, #2c1f0e 0%, #4a3728 60%, #3a2810 100%);
+    padding: 36px 32px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-modal-top::before {
+    content: '✦';
+    position: absolute; top: -20px; left: 20px;
+    font-size: 7rem; color: rgba(201,149,58,0.07);
+    font-family: 'Playfair Display', serif;
+  }
+  .welcome-modal-top::after {
+    content: '✦';
+    position: absolute; bottom: -20px; right: 20px;
+    font-size: 7rem; color: rgba(201,149,58,0.07);
+    font-family: 'Playfair Display', serif;
+  }
+  .welcome-cross { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+  .welcome-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.55rem;
+    color: #f5ddb0;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  .welcome-name-highlight { color: var(--gold-light); font-style: normal; font-weight: 600; }
+  .welcome-date-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.65;
+    position: relative; z-index: 1;
+  }
+  .welcome-modal-body { padding: 28px 32px 32px; text-align: center; }
+  .welcome-scripture {
+    background: linear-gradient(135deg, rgba(245,230,204,0.5), rgba(253,246,236,0.8));
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .welcome-scripture::before {
+    content: '\201C';
+    position: absolute; top: -8px; left: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; color: rgba(201,149,58,0.18); line-height: 1;
+  }
+  .welcome-scripture-text {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-medium);
+    line-height: 1.7;
+    position: relative; z-index: 1;
+  }
+  .welcome-scripture-ref {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.8rem;
+    color: var(--gold-dark);
+    margin-top: 8px;
+    text-align: right;
+  }
+  .welcome-message {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--ink-medium);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+  .welcome-bible-note {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(107,124,94,0.1);
+    border: 1px solid rgba(107,124,94,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    text-align: left;
+  }
+  .welcome-bible-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .welcome-bible-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.88rem;
+    color: var(--sage);
+    line-height: 1.55;
+  }
+  .welcome-bible-text strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .welcome-begin-btn {
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    padding: 15px 24px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--amber));
+    color: white;
+    box-shadow: 0 6px 24px var(--shadow-gold);
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
+  }
+  .welcome-begin-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px var(--shadow-gold); }
+  .welcome-skip {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.78rem;
+    color: var(--ink-light);
+    margin-top: 12px;
+    opacity: 0.55;
+    cursor: pointer;
+    display: block;
+    transition: opacity 0.2s;
+    background: none; border: none;
+  }
+  .welcome-skip:hover { opacity: 1; }
+ 
   /* ─── PROFILE BUTTON ─── */
   .profile-btn {
     position: fixed;
@@ -1365,6 +1522,42 @@
 </head>
 <body>
  
+<!-- Welcome Modal -->
+<div class="welcome-modal-overlay" id="welcomeModal">
+  <div class="welcome-modal">
+    <div class="welcome-modal-top">
+      <span class="welcome-cross">✝</span>
+      <div class="welcome-title" id="welcomeTitle">Welcome back, friend.</div>
+      <div class="welcome-date-label" id="welcomeDate"></div>
+    </div>
+    <div class="welcome-modal-body">
+      <div class="welcome-scripture">
+        <div class="welcome-scripture-text" id="welcomeVerse"></div>
+        <div class="welcome-scripture-ref" id="welcomeVerseRef"></div>
+      </div>
+      <p class="welcome-message">
+        God has brought you to another day — and you chose to begin it with Him.
+        That is not a small thing. Take a deep breath, open your heart, and let
+        His Word speak to you today.
+      </p>
+      <div class="welcome-bible-note">
+        <div class="welcome-bible-icon">📖</div>
+        <div class="welcome-bible-text">
+          <strong>Grab your physical Bible</strong>
+          This app is your journal companion. Read from your Bible first,
+          then come here to write, reflect, and pray. Let the pages speak before the screen does.
+        </div>
+      </div>
+      <button class="welcome-begin-btn" onclick="closeWelcomeModal()">
+        ✦ Begin Today's Devotional
+      </button>
+      <button class="welcome-skip" onclick="closeWelcomeModal()">
+        Skip for now
+      </button>
+    </div>
+  </div>
+</div>
+ 
 <!-- Profile Button -->
 <button class="profile-btn" id="profileBtn" onclick="openProfileModal()" title="Personalize your journal">👤</button>
  
@@ -1452,9 +1645,6 @@
   <div class="tab-bar">
     <button class="tab-btn active" id="tabToday" onclick="switchTab('today')">
       ✦ Today's Devotional
-    </button>
-    <button class="tab-btn" id="tabBible" onclick="switchTab('bible')">
-      📖 Bible Reader
     </button>
     <button class="tab-btn" id="tabHistory" onclick="switchTab('history')">
       📜 My Journal Archive
@@ -1633,70 +1823,6 @@
  
   </div><!-- end #paneToday -->
  
-  <!-- BIBLE READER TAB -->
-  <div class="tab-pane" id="paneBible">
-    <div class="section-card">
-      <div class="section-header">
-        <div class="section-icon">📖</div>
-        <h2 class="section-title">Bible Reader</h2>
-        <span class="section-badge" id="bibleTranslationBadge">KJV</span>
-      </div>
- 
-      <!-- Language Toggle -->
-      <div class="bible-lang-toggle">
-        <button class="lang-btn active" id="langKJV" onclick="switchLang('kjv')">🇺🇸 English — KJV</button>
-        <button class="lang-btn" id="langTagalog" onclick="switchLang('tagalog')">🇵🇭 Filipino — Ang Biblia</button>
-      </div>
- 
-      <!-- Book + Chapter Selectors -->
-      <div class="bible-reader-top">
-        <div class="form-group">
-          <label>📜 Book</label>
-          <select class="bible-select" id="bibleBook" onchange="onBookChange()"></select>
-        </div>
-        <div class="form-group">
-          <label>📄 Chapter</label>
-          <select class="bible-select" id="bibleChapter" onchange="loadBibleChapter()"></select>
-        </div>
-        <div class="form-group">
-          <label>&nbsp;</label>
-          <button class="btn btn-primary" onclick="loadBibleChapter()" style="height:44px; white-space:nowrap;">Go ›</button>
-        </div>
-      </div>
- 
-      <!-- Chapter Pills -->
-      <div class="chapter-nav">
-        <span class="chapter-nav-label">Chapters</span>
-        <div class="chapter-pills" id="chapterPills"></div>
-      </div>
- 
-      <!-- Book Header -->
-      <div class="bible-book-header" id="bibleBookHeader" style="display:none">
-        <div>
-          <div class="bible-book-meta" id="bibleHeaderMeta">Genesis · Chapter 1</div>
-          <div class="bible-book-title" id="bibleHeaderTitle">In the beginning…</div>
-        </div>
-        <div class="bible-book-meta" id="bibleHeaderTranslation">KJV</div>
-      </div>
- 
-      <!-- Verses -->
-      <div id="bibleContent"><div class="bible-loading"><div class="bible-loading-spinner"></div><br>Select a book and chapter to begin reading…</div></div>
- 
-      <!-- Prev / Next Chapter -->
-      <div class="bible-prev-next">
-        <button class="bible-nav-btn" id="btnPrevChapter" onclick="navigateChapter(-1)">‹ Previous Chapter</button>
-        <button class="bible-nav-btn" id="btnNextChapter" onclick="navigateChapter(1)">Next Chapter ›</button>
-      </div>
- 
-      <!-- Use Selected Verse Button -->
-      <div class="bible-use-btn" id="bibleUseBtn">
-        <button class="bible-use-inner" onclick="useSelectedVerse()">
-          ✦ Use selected verse in today's devotional
-        </button>
-      </div>
-    </div>
-  </div><!-- end #paneBible -->
- 
   <!-- HISTORY TAB -->
   <div class="tab-pane" id="paneHistory">
     <div class="section-card">
@@ -1837,6 +1963,53 @@
       }
     }
     return streak;
+  }
+ 
+  // ── Welcome Modal ──────────────────────────────────────
+  const WELCOME_VERSES = [
+    { text: "This is the day the LORD has made; let us rejoice and be glad in it.", ref: "— Psalm 118:24" },
+    { text: "The steadfast love of the LORD never ceases; his mercies never come to an end. They are new every morning.", ref: "— Lamentations 3:22–23" },
+    { text: "Seek the LORD while he may be found; call upon him while he is near.", ref: "— Isaiah 55:6" },
+    { text: "Draw near to God, and he will draw near to you.", ref: "— James 4:8" },
+    { text: "Be still, and know that I am God.", ref: "— Psalm 46:10" },
+    { text: "Your word is a lamp to my feet and a light to my path.", ref: "— Psalm 119:105" },
+    { text: "Trust in the LORD with all your heart and lean not on your own understanding.", ref: "— Proverbs 3:5" },
+  ];
+ 
+  function showWelcomeModal() {
+    const today    = new Date().toISOString().split('T')[0];
+    const lastSeen = localStorage.getItem('devotional_welcome_shown');
+    if (lastSeen === today) return; // already shown today
+ 
+    // Pick a verse based on day of year
+    const dayIdx = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    const v = WELCOME_VERSES[dayIdx % WELCOME_VERSES.length];
+ 
+    // Set verse
+    $('welcomeVerse').textContent  = v.text;
+    $('welcomeVerseRef').textContent = v.ref;
+ 
+    // Set date label
+    $('welcomeDate').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+ 
+    // Set greeting with name if available
+    const profile = loadProfile();
+    const hour    = new Date().getHours();
+    const time    = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+    $('welcomeTitle').innerHTML = profile.name
+      ? `${time}, <span class="welcome-name-highlight">${profile.name}.</span>`
+      : `${time}, beloved.`;
+ 
+    // Show modal
+    setTimeout(() => $('welcomeModal').classList.add('open'), 400);
+  }
+ 
+  function closeWelcomeModal() {
+    $('welcomeModal').classList.remove('open');
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem('devotional_welcome_shown', today);
   }
  
   // ── Profile / Personalization ──────────────────────────
@@ -2052,17 +2225,16 @@
  
   // ── Tab Switching ──────────────────────────────────────
   function switchTab(tab) {
-    ['today','bible','history'].forEach(t => {
+    ['today','history'].forEach(t => {
       const btn  = $(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`);
       const pane = $(`pane${t.charAt(0).toUpperCase()+t.slice(1)}`);
       if (btn)  btn.classList.toggle('active',  t === tab);
       if (pane) pane.classList.toggle('active', t === tab);
     });
     if (tab === 'history') renderHistory();
-    if (tab === 'bible' && !bibleInitialized) initBibleReader();
   }
  
-  // ── Bible Reader ───────────────────────────────────────
+  // ── Tab Switching (old, replaced above) ───────────────
   let bibleInitialized  = false;
   let currentLang       = 'kjv';
   let currentBookIdx    = 0;   // index into BIBLE_BOOKS
@@ -2410,6 +2582,7 @@
     const profile = loadProfile();
     applyProfile(profile);
     if (profile.color) { selectedColor = profile.color; }
+    showWelcomeModal();
   });
 </script>
 </body>
