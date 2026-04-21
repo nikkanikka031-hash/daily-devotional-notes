@@ -329,11 +329,11 @@
 
   label {
     font-family: 'Crimson Pro', serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--ink-light);
-    font-weight: 400;
+    color: var(--ink-medium);
+    font-weight: 500;
   }
 
   input[type="text"],
@@ -2602,12 +2602,27 @@
     for (let i = 0; i < 365; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
-      const key  = `habits_${prefix}_${d.toISOString().split('T')[0]}`;
+      const dateStr = d.toISOString().split('T')[0];
+      // Check if a journal entry was saved for this day
+      const key = `devotional_${prefix}_${dateStr}`;
       const data = localStorage.getItem(key);
       if (data) {
-        const h = JSON.parse(data);
-        if (h.some(v => v)) streak++;
-        else if (i > 0) break;
+        try {
+          const entry = JSON.parse(data);
+          // Count as a devotion day if any field has content
+          const hasContent = [
+            entry.bibleRef, entry.biblePassage, entry.godTeaching,
+            entry.standoutVerse, entry.application, entry.reflection,
+            entry.gratitude, entry.prayerRequests, entry.surrender
+          ].some(v => v && v.trim().length > 0);
+          if (hasContent) {
+            streak++;
+          } else if (i > 0) {
+            break;
+          }
+        } catch(e) {
+          if (i > 0) break;
+        }
       } else {
         if (i > 0) break;
       }
@@ -3260,8 +3275,8 @@
     });
     if (tab === 'history')   renderHistory();
     if (tab === 'community') renderTestimonies();
-    // Remember the active tab
-    localStorage.setItem('active_tab', tab);
+    // Remember tab for refresh only (sessionStorage clears when app is fully closed)
+    sessionStorage.setItem('active_tab', tab);
   }
 
   // ── Community Tab ──────────────────────────────────────
@@ -3934,8 +3949,8 @@
     applyProfile(profile);
     if (profile.color) { selectedColor = profile.color; }
     checkFirstTime();
-    // Restore last active tab
-    const lastTab = localStorage.getItem('active_tab') || 'today';
+    // Restore tab — sessionStorage keeps tab on refresh but resets on fresh open
+    const lastTab = sessionStorage.getItem('active_tab') || 'today';
     switchTab(lastTab);
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
