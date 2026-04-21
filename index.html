@@ -30,7 +30,7 @@
 <meta property="og:locale" content="en_PH">
 
 <!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="/daily-devotional-notes/manifest.json">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WE1N7RWNNX"></script>
@@ -3870,7 +3870,7 @@
     checkFirstTime();
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      navigator.serviceWorker.register('/daily-devotional-notes/sw.js')
         .catch(() => {}); // silently fail if not available
     }
   });
