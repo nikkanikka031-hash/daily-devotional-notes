@@ -8,7 +8,11 @@
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function(){ emailjs.init({ publicKey: 'rTNTF6QtC9UczNZ_Y' }); })();
+  window.addEventListener('load', function() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: 'rTNTF6QtC9UczNZ_Y' });
+    }
+  });
 </script>
 
 <!-- PWA Meta Tags -->
@@ -2370,7 +2374,10 @@
       </p>
       <div class="form-group" style="margin-bottom:14px;">
         <label>✦ Write a testimony or feedback</label>
-        <textarea id="testimonyInput" placeholder="e.g. A friend told me this app helped her get back into her daily devotional… or write your own personal testimony about how this has blessed you." style="min-height:100px;"></textarea>
+        <textarea id="testimonyInput" maxlength="500" placeholder="e.g. A friend told me this app helped her get back into her daily devotional… or write your own personal testimony about how this has blessed you." style="min-height:100px;" oninput="updateTestimonyCount()"></textarea>
+        <div style="font-family:'Crimson Pro',serif; font-size:0.78rem; color:var(--ink-light); text-align:right; margin-top:4px; opacity:0.65;">
+          <span id="testimonyCount">0</span>/500 characters
+        </div>
       </div>
       <button class="btn btn-primary" onclick="saveTestimony()" style="margin-bottom:24px;">
         <span>💛</span> Save This Blessing
@@ -3310,9 +3317,36 @@
     }
   }
 
+  function updateTestimonyCount() {
+    const len = ($('testimonyInput').value || '').length;
+    const counter = $('testimonyCount');
+    if (counter) {
+      counter.textContent = len;
+      counter.style.color = len > 450 ? '#a83232' : '';
+    }
+  }
+
+  function hasSubmittedTodayTestimony() {
+    const today = new Date().toISOString().split('T')[0];
+    return localStorage.getItem(`testimony_submitted_${today}`) === '1';
+  }
+
+  function markTestimonySubmittedToday() {
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem(`testimony_submitted_${today}`, '1');
+  }
+
   async function saveTestimony() {
     const text = $('testimonyInput').value.trim();
-    if (!text) return;
+    if (!text) { showToast('Please write something before saving. 🙏'); return; }
+    if (text.length < 10) { showToast('Please write at least 10 characters. 🙏'); return; }
+    if (text.length > 500) { showToast('Please keep it under 500 characters. 🙏'); return; }
+
+    // 1 per day limit
+    if (hasSubmittedTodayTestimony()) {
+      showToast('✦ You\'ve already shared a blessing today. Come back tomorrow! 🙏');
+      return;
+    }
 
     const btn = document.querySelector('[onclick="saveTestimony()"]');
     if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> Saving…'; }
@@ -3339,12 +3373,16 @@
           date: date,
           app_url: 'https://nikkanikka031-hash.github.io/daily-devotional-notes'
         });
+        console.log('✦ Email sent successfully!');
       } catch(emailErr) {
-        // Email failed silently — testimony still saved
+        console.error('EmailJS error:', emailErr);
+        // Email failed but testimony was saved — don't block the user
       }
       $('testimonyInput').value = '';
+      updateTestimonyCount();
       currentPage = 0;
-      bustTestimonyCache(); // clear cache so new testimony shows immediately
+      markTestimonySubmittedToday();
+      bustTestimonyCache();
       showToast('✦  Your blessing has been shared! 🙏');
       await renderTestimonies();
     } catch(e) {
