@@ -2,7 +2,8 @@
   "name": "Daily Devotional Notes",
   "short_name": "Devotional",
   "description": "A personal daily Bible devotional journal. Read, reflect, pray, and grow with God every day.",
-  "start_url": "/",
+  "start_url": "/daily-devotional-notes/",
+  "scope": "/daily-devotional-notes/",
   "display": "standalone",
   "background_color": "#fdf6ec",
   "theme_color": "#2c1f0e",
@@ -11,46 +12,16 @@
   "categories": ["lifestyle", "education", "books"],
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/daily-devotional-notes/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/daily-devotional-notes/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1280x800",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Today's Devotional",
-      "short_name": "Today",
-      "description": "Open today's devotional journal",
-      "url": "/?tab=today",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Journal Archive",
-      "short_name": "Archive",
-      "description": "View past devotional entries",
-      "url": "/?tab=history",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
