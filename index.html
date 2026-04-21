@@ -2050,8 +2050,6 @@
     </div>
   </div><!-- end #paneHistory -->
 
-  </div><!-- end #paneHistory -->
-
   <!-- COMMUNITY TAB -->
   <div class="tab-pane" id="paneCommunity">
 
@@ -2194,13 +2192,15 @@
   }
 
   function saveHabits() {
-    const today = new Date().toISOString().split('T')[0];
-    localStorage.setItem(`habits_${today}`, JSON.stringify(habits));
+    const prefix = getUserPrefix();
+    const today  = new Date().toISOString().split('T')[0];
+    localStorage.setItem(`habits_${prefix}_${today}`, JSON.stringify(habits));
   }
 
   function loadHabits() {
-    const today = new Date().toISOString().split('T')[0];
-    const saved = localStorage.getItem(`habits_${today}`);
+    const prefix = getUserPrefix();
+    const today  = new Date().toISOString().split('T')[0];
+    const saved  = localStorage.getItem(`habits_${prefix}_${today}`);
     if (saved) habits = JSON.parse(saved);
     renderHabits();
   }
@@ -2228,12 +2228,13 @@
   }
 
   function calculateStreak() {
+    const prefix = getUserPrefix();
     let streak = 0;
     const today = new Date();
     for (let i = 0; i < 365; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
-      const key = `habits_${d.toISOString().split('T')[0]}`;
+      const key  = `habits_${prefix}_${d.toISOString().split('T')[0]}`;
       const data = localStorage.getItem(key);
       if (data) {
         const h = JSON.parse(data);
@@ -2446,11 +2447,12 @@
     showAutosavePill('saving');
     clearTimeout(autoSaveTimer);
     autoSaveTimer = setTimeout(() => {
-      const today = $('devotionalDate').value || new Date().toISOString().split('T')[0];
-      const entry = {};
+      const prefix = getUserPrefix();
+      const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+      const entry  = {};
       FIELDS.forEach(f => entry[f] = $(f).value);
       entry.habits = habits;
-      localStorage.setItem(`devotional_${today}`, JSON.stringify(entry));
+      localStorage.setItem(`devotional_${prefix}_${today}`, JSON.stringify(entry));
       saveHabits();
       updateStreak();
       showAutosavePill('saved');
@@ -2463,26 +2465,32 @@
       if (el) el.addEventListener('input', autoSave);
     });
   }
+  // ── User Prefix (namespaces personal data per user) ───
+  function getUserPrefix() {
+    const profile = loadProfile();
+    const name = (profile.name || 'user').toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    return name || 'user';
+  }
+
   const FIELDS = ['devotionalDate','bibleRef','biblePassage','godTeaching','standoutVerse','application','gratitude','prayerRequests','surrender','reflection'];
 
   function saveEntry() {
-    const today = $('devotionalDate').value || new Date().toISOString().split('T')[0];
-    const entry = {};
+    const prefix = getUserPrefix();
+    const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+    const entry  = {};
     FIELDS.forEach(f => entry[f] = $(f).value);
     entry.habits = habits;
-    localStorage.setItem(`devotional_${today}`, JSON.stringify(entry));
+    localStorage.setItem(`devotional_${prefix}_${today}`, JSON.stringify(entry));
     saveHabits();
     updateStreak();
     showToast('✦  Entry saved — well done! Keep seeking Him daily.');
   }
 
   function loadEntry() {
-    const today = $('devotionalDate').value || new Date().toISOString().split('T')[0];
-    const saved = localStorage.getItem(`devotional_${today}`);
-    if (!saved) {
-      showToast('No saved entry found for this date.');
-      return;
-    }
+    const prefix = getUserPrefix();
+    const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+    const saved  = localStorage.getItem(`devotional_${prefix}_${today}`);
+    if (!saved) { showToast('No saved entry found for this date.'); return; }
     const entry = JSON.parse(saved);
     FIELDS.forEach(f => { if (entry[f] !== undefined) $(f).value = entry[f]; });
     if (entry.habits) { habits = entry.habits; renderHabits(); }
@@ -2518,25 +2526,14 @@
 
   // ── Auto-load today's entry on open ───────────────────
   function autoLoad() {
-    const today = new Date().toISOString().split('T')[0];
-    const saved = localStorage.getItem(`devotional_${today}`);
+    const prefix = getUserPrefix();
+    const today  = new Date().toISOString().split('T')[0];
+    const saved  = localStorage.getItem(`devotional_${prefix}_${today}`);
     if (saved) {
       const entry = JSON.parse(saved);
       FIELDS.forEach(f => { if (entry[f] !== undefined) $(f).value = entry[f]; });
       if (entry.habits) { habits = entry.habits; renderHabits(); }
     }
-  }
-
-  // ── Tab Switching ──────────────────────────────────────
-  function switchTab(tab) {
-    ['today','history','dashboard'].forEach(t => {
-      const btn  = $(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`);
-      const pane = $(`pane${t.charAt(0).toUpperCase()+t.slice(1)}`);
-      if (btn)  btn.classList.toggle('active',  t === tab);
-      if (pane) pane.classList.toggle('active', t === tab);
-    });
-    if (tab === 'history')   renderHistory();
-    if (tab === 'dashboard') renderDashboard();
   }
 
   // ── Tab Switching ──────────────────────────────────────
@@ -2561,50 +2558,105 @@
       });
   }
 
-  function saveTestimony() {
+  // ── Supabase Config ────────────────────────────────────
+  const SUPABASE_URL = 'https://pblyspemrymwkmtifypl.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_7uqVGCMO6h5GrauTUB78ow_sywkza88';
+
+  function getUserToken() {
+    let token = localStorage.getItem('user_token');
+    if (!token) {
+      token = 'u_' + Math.random().toString(36).substr(2, 16) + Date.now();
+      localStorage.setItem('user_token', token);
+    }
+    return token;
+  }
+
+  async function saveTestimony() {
     const text = $('testimonyInput').value.trim();
     if (!text) return;
-    const profile = loadProfile();
-    const name = profile.name || 'Anonymous';
-    const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
-    testimonies.unshift({
-      text,
-      name,
-      date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }),
-      id: Date.now()
-    });
-    localStorage.setItem('dash_testimonies', JSON.stringify(testimonies));
-    $('testimonyInput').value = '';
-    renderTestimonies();
-    showToast('✦  Blessing saved! Every testimony matters. 🙏');
+
+    const btn = document.querySelector('[onclick="saveTestimony()"]');
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> Saving…'; }
+
+    const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+    const user_token = getUserToken();
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/testimonies`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ text, date, user_token })
+      });
+
+      if (!res.ok) throw new Error('Failed to save');
+      $('testimonyInput').value = '';
+      showToast('✦  Your blessing has been shared! 🙏');
+      await renderTestimonies();
+    } catch(e) {
+      showToast('Could not save — please check your connection.');
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerHTML = '<span>💛</span> Save This Blessing'; }
+    }
   }
 
-  function deleteTestimony(id) {
-    let testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
-    testimonies = testimonies.filter(t => t.id !== id);
-    localStorage.setItem('dash_testimonies', JSON.stringify(testimonies));
-    renderTestimonies();
+  async function deleteTestimony(id) {
+    const user_token = getUserToken();
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/testimonies?id=eq.${id}&user_token=eq.${encodeURIComponent(user_token)}`, {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      await renderTestimonies();
+    } catch(e) {
+      showToast('Could not delete — please try again.');
+    }
   }
 
-  function renderTestimonies() {
+  async function renderTestimonies() {
     const list = $('testimonyList');
     if (!list) return;
-    const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
-    const currentName = (loadProfile().name || '').trim();
-    if (!testimonies.length) {
+
+    list.innerHTML = `<div style="text-align:center; padding:20px 0; font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); opacity:0.65;">Loading testimonies… 🙏</div>`;
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/testimonies?select=*&order=created_at.desc`, {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      });
+      if (!res.ok) throw new Error('Failed to load');
+      const testimonies = await res.json();
+      const myToken = getUserToken();
+
+      if (!testimonies.length) {
+        list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
+          No testimonies yet — be the first to share a blessing. 🌿</div>`;
+        return;
+      }
+
+      list.innerHTML = testimonies.map(t => {
+        const isOwner = t.user_token === myToken;
+        return `
+        <div class="testimony-item">
+          ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
+          <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
+          <div class="testimony-date">${t.date}</div>
+        </div>`;
+      }).join('');
+
+    } catch(e) {
       list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
-        No testimonies yet — every blessing is worth recording. 🌿</div>`;
-      return;
+        Could not load testimonies. Please check your connection. 🙏</div>`;
     }
-    list.innerHTML = testimonies.map(t => {
-      const isOwner = currentName && currentName === t.name;
-      return `
-      <div class="testimony-item">
-        ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
-        <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
-        <div class="testimony-date">${t.date}</div>
-      </div>`;
-    }).join('');
   }
 
   // ── Tab Switching (old, replaced above) ───────────────
@@ -2806,11 +2858,12 @@
   const HABIT_LABELS = ['📖 Bible read','✍️ Notes written','🙏 Prayer','💛 Reflection'];
 
   function getAllEntries() {
+    const prefix  = getUserPrefix();
     const entries = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.startsWith('devotional_') && !key.includes('profile') && !key.includes('welcomed')) {
-        const dateStr = key.replace('devotional_', '');
+      if (key && key.startsWith(`devotional_${prefix}_`)) {
+        const dateStr = key.replace(`devotional_${prefix}_`, '');
         if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
           try {
             const data = JSON.parse(localStorage.getItem(key));
@@ -2882,7 +2935,8 @@
 
   // ── Entry Detail Modal ─────────────────────────────────
   function openDetailModal(dateStr) {
-    const saved = localStorage.getItem(`devotional_${dateStr}`);
+    const prefix = getUserPrefix();
+    const saved  = localStorage.getItem(`devotional_${prefix}_${dateStr}`);
     if (!saved) return;
     const e = JSON.parse(saved);
     const fd = formatDateNice(dateStr);
@@ -2933,7 +2987,8 @@
   function handleDetailOverlayClick(e) { if (e.target === $('detailModal')) closeDetailModal(); }
 
   function loadEntryByDate(dateStr) {
-    const saved = localStorage.getItem(`devotional_${dateStr}`);
+    const prefix = getUserPrefix();
+    const saved  = localStorage.getItem(`devotional_${prefix}_${dateStr}`);
     if (!saved) return;
     const entry = JSON.parse(saved);
     FIELDS.forEach(f => { if (entry[f] !== undefined) $(f).value = entry[f]; });
