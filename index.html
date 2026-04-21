@@ -2601,7 +2601,6 @@
       return `
       <div class="testimony-item">
         ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
-        <div class="testimony-author">✦ ${t.name || 'Anonymous'}</div>
         <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
         <div class="testimony-date">${t.date}</div>
       </div>`;
