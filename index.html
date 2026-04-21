@@ -3259,6 +3259,8 @@
     });
     if (tab === 'history')   renderHistory();
     if (tab === 'community') renderTestimonies();
+    // Remember the active tab
+    localStorage.setItem('active_tab', tab);
   }
 
   // ── Community Tab ──────────────────────────────────────
@@ -3906,10 +3908,13 @@
     applyProfile(profile);
     if (profile.color) { selectedColor = profile.color; }
     checkFirstTime();
+    // Restore last active tab
+    const lastTab = localStorage.getItem('active_tab') || 'today';
+    switchTab(lastTab);
     // Register Service Worker for PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/daily-devotional-notes/sw.js')
-        .catch(() => {}); // silently fail if not available
+        .catch(() => {});
     }
   });
 </script>
