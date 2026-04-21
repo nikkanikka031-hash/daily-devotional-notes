@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Devotional Notes</title>
 
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: 'rTNTF6QtC9UczNZ_Y' }); })();
+</script>
+
 <!-- PWA Meta Tags -->
 <meta name="application-name" content="Daily Devotional Notes">
 <meta name="description" content="A personal daily Bible devotional journal. Read, reflect, pray, and grow with God every day.">
@@ -3261,8 +3267,9 @@
   // ── Supabase Config ────────────────────────────────────
   const SUPABASE_URL = 'https://pblyspemrymwkmtifypl.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_7uqVGCMO6h5GrauTUB78ow_sywkza88';
-  const PAGE_SIZE    = 10;
-  let currentPage    = 0;
+  const PAGE_SIZE      = 10;
+  const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in ms
+  let currentPage      = 0;
   let totalTestimonies = 0;
 
   function getUserToken() {
@@ -3272,6 +3279,35 @@
       localStorage.setItem('user_token', token);
     }
     return token;
+  }
+
+  // ── Testimony Cache ────────────────────────────────────
+  function getCachedTestimonies(page) {
+    try {
+      const raw = localStorage.getItem(`testimony_cache_p${page}`);
+      if (!raw) return null;
+      const { data, total, timestamp } = JSON.parse(raw);
+      if (Date.now() - timestamp > CACHE_DURATION) return null; // expired
+      return { data, total };
+    } catch(e) { return null; }
+  }
+
+  function setCachedTestimonies(page, data, total) {
+    try {
+      localStorage.setItem(`testimony_cache_p${page}`, JSON.stringify({
+        data, total, timestamp: Date.now()
+      }));
+    } catch(e) {}
+  }
+
+  function bustTestimonyCache() {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('testimony_cache_')) {
+        localStorage.removeItem(key);
+        i--;
+      }
+    }
   }
 
   async function saveTestimony() {
@@ -3296,8 +3332,18 @@
         body: JSON.stringify({ text, date, user_token })
       });
       if (!res.ok) throw new Error('Failed to save');
+      // Send email notification to Marikit
+      try {
+        await emailjs.send('service_bct07qr', 'template_mhrrzp6', {
+          testimony: text,
+          date: date
+        });
+      } catch(emailErr) {
+        // Email failed silently — testimony still saved
+      }
       $('testimonyInput').value = '';
       currentPage = 0;
+      bustTestimonyCache(); // clear cache so new testimony shows immediately
       showToast('✦  Your blessing has been shared! 🙏');
       await renderTestimonies();
     } catch(e) {
@@ -3317,6 +3363,7 @@
           'Authorization': `Bearer ${SUPABASE_KEY}`
         }
       });
+      bustTestimonyCache(); // clear cache so deletion shows immediately
       await renderTestimonies();
     } catch(e) {
       showToast('Could not delete — please try again.');
@@ -3326,6 +3373,14 @@
   async function renderTestimonies() {
     const list = $('testimonyList');
     if (!list) return;
+
+    // Try cache first
+    const cached = getCachedTestimonies(currentPage);
+    if (cached) {
+      totalTestimonies = cached.total;
+      displayTestimonies(cached.data, list);
+      return;
+    }
 
     list.innerHTML = `<div style="text-align:center; padding:20px 0; font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); opacity:0.65;">Loading testimonies… 🙏</div>`;
 
@@ -3346,46 +3401,64 @@
       );
       if (!res.ok) throw new Error('Failed to load');
       const testimonies = await res.json();
-      const myToken     = getUserToken();
-      const totalPages  = Math.ceil(totalTestimonies / PAGE_SIZE);
 
-      if (!totalTestimonies) {
-        list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
-          No testimonies yet — be the first to share a blessing. 🌿</div>`;
-        return;
-      }
+      // Save to cache
+      setCachedTestimonies(currentPage, testimonies, totalTestimonies);
 
-      const items = testimonies.map(t => {
-        const isOwner = t.user_token === myToken;
-        return `
-        <div class="testimony-item">
-          ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
-          <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
-          <div class="testimony-date">${t.date}</div>
-        </div>`;
-      }).join('');
-
-      // Pagination controls
-      const pagination = `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:20px; gap:12px; flex-wrap:wrap;">
-          <button class="bible-nav-btn" onclick="changeTestimonyPage(-1)" ${currentPage === 0 ? 'disabled' : ''}>
-            ‹ Previous
-          </button>
-          <div style="font-family:'Crimson Pro',serif; font-size:0.85rem; color:var(--ink-light); text-align:center;">
-            Page <strong style="color:var(--gold-dark);">${currentPage + 1}</strong> of <strong style="color:var(--gold-dark);">${totalPages}</strong>
-            &nbsp;·&nbsp; ${totalTestimonies} blessing${totalTestimonies !== 1 ? 's' : ''}
-          </div>
-          <button class="bible-nav-btn" onclick="changeTestimonyPage(1)" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>
-            Next ›
-          </button>
-        </div>`;
-
-      list.innerHTML = items + pagination;
+      displayTestimonies(testimonies, list);
 
     } catch(e) {
+      // Try to show expired cache as fallback
+      try {
+        const raw = localStorage.getItem(`testimony_cache_p${currentPage}`);
+        if (raw) {
+          const { data, total } = JSON.parse(raw);
+          totalTestimonies = total;
+          displayTestimonies(data, list);
+          showToast('Showing cached testimonies — check connection for latest.');
+          return;
+        }
+      } catch(ex) {}
       list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
         Could not load testimonies. Please check your connection. 🙏</div>`;
     }
+  }
+
+  function displayTestimonies(testimonies, list) {
+    const myToken    = getUserToken();
+    const totalPages = Math.ceil(totalTestimonies / PAGE_SIZE);
+
+    if (!totalTestimonies) {
+      list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
+        No testimonies yet — be the first to share a blessing. 🌿</div>`;
+      return;
+    }
+
+    const items = testimonies.map(t => {
+      const isOwner = t.user_token === myToken;
+      return `
+      <div class="testimony-item">
+        ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
+        <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
+        <div class="testimony-date">${t.date}</div>
+      </div>`;
+    }).join('');
+
+    const pagination = `
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-top:20px; gap:12px; flex-wrap:wrap;">
+        <button class="bible-nav-btn" onclick="changeTestimonyPage(-1)" ${currentPage === 0 ? 'disabled' : ''}>
+          ‹ Previous
+        </button>
+        <div style="font-family:'Crimson Pro',serif; font-size:0.85rem; color:var(--ink-light); text-align:center;">
+          Page <strong style="color:var(--gold-dark);">${currentPage + 1}</strong> of <strong style="color:var(--gold-dark);">${totalPages}</strong>
+          &nbsp;·&nbsp; ${totalTestimonies} blessing${totalTestimonies !== 1 ? 's' : ''}
+        </div>
+        <button class="bible-nav-btn" onclick="changeTestimonyPage(1)" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>
+          Next ›
+        </button>
+      </div>`;
+
+    list.innerHTML = items + pagination;
   }
 
   function changeTestimonyPage(dir) {
