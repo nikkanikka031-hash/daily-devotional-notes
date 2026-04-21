@@ -900,6 +900,50 @@
     flex-shrink: 0;
     margin-top: 2px;
   }
+  .entry-delete-btn {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.2s, transform 0.2s;
+    padding: 2px;
+    line-height: 1;
+  }
+  .entry-card:hover .entry-delete-btn { opacity: 0.7; }
+  .entry-delete-btn:hover { opacity: 1 !important; transform: scale(1.15); }
+
+  .entry-delete-confirm {
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+  .entry-delete-yes {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.7rem;
+    background: #a83232;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .entry-delete-yes:hover { background: #c03a3a; }
+  .entry-delete-no {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.7rem;
+    background: transparent;
+    color: var(--ink-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .entry-delete-no:hover { border-color: var(--gold-light); color: var(--gold-dark); }
 
   /* ─── ENTRY DETAIL MODAL ─── */
   .detail-modal {
@@ -1236,6 +1280,166 @@
   @media (max-width: 640px) {
     .bible-reader-top { grid-template-columns: 1fr 1fr; }
   }
+  /* ─── STREAK PROGRESS & BADGES ─── */
+  .streak-progress-wrap {
+    margin-top: 10px;
+  }
+  .streak-progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .streak-progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold-light), var(--gold));
+    border-radius: 10px;
+    transition: width 0.8s cubic-bezier(.34,1.56,.64,1);
+  }
+  .streak-progress-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    color: #c9b08a;
+    opacity: 0.75;
+    letter-spacing: 0.04em;
+  }
+  .streak-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(201,149,58,0.15);
+    border: 1px solid rgba(201,149,58,0.3);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.72rem;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  /* ─── MILESTONE MODAL ─── */
+  .milestone-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44,31,14,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .milestone-overlay.open { opacity: 1; pointer-events: all; }
+  .milestone-modal {
+    background: linear-gradient(145deg, #2c1f0e, #4a3728);
+    border: 1px solid rgba(201,149,58,0.3);
+    border-radius: 28px;
+    padding: 48px 36px 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .milestone-overlay.open .milestone-modal { transform: scale(1) translateY(0); }
+
+  .milestone-confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    opacity: 0;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(420px) rotate(720deg); opacity: 0; }
+  }
+
+  .milestone-icon {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    display: block;
+    animation: bounceIn 0.6s 0.3s ease both;
+  }
+  @keyframes bounceIn {
+    0%   { transform: scale(0.3); opacity: 0; }
+    60%  { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .milestone-days {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 4px;
+    animation: fadeDown 0.5s 0.4s ease both;
+  }
+  .milestone-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.65;
+    margin-bottom: 14px;
+    animation: fadeDown 0.5s 0.5s ease both;
+  }
+  .milestone-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: #f5ddb0;
+    margin-bottom: 16px;
+    animation: fadeDown 0.5s 0.6s ease both;
+  }
+  .milestone-verse {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: rgba(212,185,138,0.75);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    padding: 0 12px;
+    animation: fadeDown 0.5s 0.7s ease both;
+  }
+  .milestone-btn {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 32px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(201,149,58,0.4);
+    transition: all 0.25s;
+    animation: fadeDown 0.5s 0.8s ease both;
+    letter-spacing: 0.02em;
+  }
+  .milestone-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,149,58,0.5); }
+
   /* ─── COMMUNITY TAB ─── */
   .share-platform-card {
     background: rgba(245,230,204,0.3);
@@ -1822,6 +2026,21 @@
   </div>
 </div>
 
+<!-- Milestone Celebration Modal -->
+<div class="milestone-overlay" id="milestoneModal">
+  <div class="milestone-modal">
+    <div class="milestone-confetti" id="milestoneConfetti"></div>
+    <div class="milestone-icon" id="milestoneIcon">🏆</div>
+    <div class="milestone-days" id="milestoneDays">100</div>
+    <div class="milestone-label">Days of Faithfulness</div>
+    <div class="milestone-title" id="milestoneTitle">You are a testimony!</div>
+    <div class="milestone-verse" id="milestoneVerse"></div>
+    <button class="milestone-btn" onclick="closeMilestoneModal()">
+      ✦ Glory to God!
+    </button>
+  </div>
+</div>
+
 <!-- Scripture Banner -->
 <div class="scripture-banner">
   "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
@@ -1842,14 +2061,25 @@
   <!-- STREAK BAR -->
   <div class="streak-bar">
     <div class="streak-info">
-      <div class="streak-flame">🔥</div>
+      <div class="streak-flame" id="streakFlame">🔥</div>
       <div>
         <div class="streak-count" id="streakCount">0</div>
         <div class="streak-label">Day Streak</div>
       </div>
     </div>
-    <div class="streak-message" id="streakMessage">
-      Begin your devotional journey today — one faithful day at a time.
+    <div style="flex:1; min-width:0;">
+      <div class="streak-message" id="streakMessage">
+        Begin your devotional journey today — one faithful day at a time.
+      </div>
+      <!-- Progress Bar -->
+      <div class="streak-progress-wrap" id="streakProgressWrap" style="display:none;">
+        <div class="streak-progress-bar">
+          <div class="streak-progress-fill" id="streakProgressFill"></div>
+        </div>
+        <div class="streak-progress-label" id="streakProgressLabel"></div>
+      </div>
+      <!-- Badges -->
+      <div class="streak-badges" id="streakBadges"></div>
     </div>
   </div>
 
@@ -2205,26 +2435,120 @@
     renderHabits();
   }
 
-  // ── Streak ─────────────────────────────────────────────
+  // ── Milestones ──────────────────────────────────────────
+  const MILESTONES = [
+    { days: 7,   icon: '🌱', title: 'First Week!',            verse: '"The path of the righteous is like the morning sun, shining ever brighter." — Proverbs 4:18' },
+    { days: 30,  icon: '🌿', title: 'One Month of Faithfulness!', verse: '"Blessed is the one who perseveres under trial." — James 1:12' },
+    { days: 60,  icon: '✦',  title: 'Two Months Strong!',     verse: '"Let us not become weary in doing good." — Galatians 6:9' },
+    { days: 100, icon: '👑', title: '100 Days — You Are a Testimony!', verse: '"I have fought the good fight, I have finished the race, I have kept the faith." — 2 Timothy 4:7' },
+    { days: 180, icon: '🕊️', title: 'Half a Year With God!',  verse: '"Those who hope in the LORD will renew their strength." — Isaiah 40:31' },
+    { days: 365, icon: '🌟', title: 'A Full Year of Devotion!', verse: '"His mercies are new every morning — and you have met them every day." — Lamentations 3:23' },
+  ];
+
+  const MILESTONE_DAYS = MILESTONES.map(m => m.days);
+
+  function getNextMilestone(streak) {
+    return MILESTONES.find(m => m.days > streak) || null;
+  }
+
+  function getEarnedBadges(streak) {
+    return MILESTONES.filter(m => streak >= m.days);
+  }
+
   function updateStreak() {
     const streak = calculateStreak();
     $('streakCount').textContent = streak;
+
+    // Dynamic flame emoji
+    const flame = streak >= 100 ? '🔥🔥' : streak >= 30 ? '🔥' : streak >= 7 ? '🔥' : '🕯️';
+    $('streakFlame').textContent = flame;
+
+    // Streak message
     const messages = [
       "Begin your devotional journey today — one faithful day at a time.",
       "Well done! You've started something beautiful. Keep going!",
       "Two days in — your faithfulness is noticed by God. Press on!",
       "Three days! Your roots are growing deeper. Stay the course.",
-      "A whole week of faithfulness! God is delighted in your devotion.",
-      "Keep seeking Him daily — this is where transformation happens.",
-      "Your consistency is becoming a sacred rhythm. Don't stop now!",
-      "God honors those who diligently seek Him. You are one of them.",
-      "Faithful, day after day. This is the stuff of a godly life.",
-      "Double digits! Your daily devotion is building an unshakeable foundation.",
-      "You are growing in wisdom and in grace. Heaven takes notice.",
-      "A month of faithful seeking! Your spirit is being renewed daily.",
+      "Keep going — something beautiful is being built in you.",
+      "Five days of seeking God. This is becoming a sacred rhythm.",
+      "Six days! You are so close to your first milestone. Don't stop now!",
     ];
-    const idx = Math.min(streak, messages.length - 1);
-    $('streakMessage').textContent = messages[streak >= 30 ? 11 : idx];
+    const msg = streak < messages.length
+      ? messages[streak]
+      : streak < 30  ? `${streak} days of faithfulness — God sees every single one.`
+      : streak < 60  ? `${streak} days! You are being renewed day by day.`
+      : streak < 100 ? `${streak} days! Your roots are growing deep and unshakeable.`
+      : streak < 180 ? `${streak} days — you are a living testimony of God's grace!`
+      : streak < 365 ? `${streak} days! Heaven is cheering you on. Keep pressing in.`
+      : `${streak} days — a full year and counting! What God has done in you is extraordinary.`;
+    $('streakMessage').textContent = msg;
+
+    // Progress bar to next milestone
+    const next = getNextMilestone(streak);
+    const progressWrap = $('streakProgressWrap');
+    if (next && streak > 0) {
+      progressWrap.style.display = 'block';
+      const prev = MILESTONE_DAYS.filter(d => d <= streak).pop() || 0;
+      const pct  = Math.min(100, Math.round(((streak - prev) / (next.days - prev)) * 100));
+      $('streakProgressFill').style.width = pct + '%';
+      $('streakProgressLabel').textContent = `${next.days - streak} day${next.days - streak !== 1 ? 's' : ''} until ${next.icon} ${next.title}`;
+    } else if (!next) {
+      progressWrap.style.display = 'none';
+    }
+
+    // Earned badges
+    const badges = getEarnedBadges(streak);
+    $('streakBadges').innerHTML = badges.map(b =>
+      `<div class="streak-badge">${b.icon} ${b.days}-Day Badge</div>`
+    ).join('');
+
+    // Check for new milestone celebration
+    checkMilestoneCelebration(streak);
+  }
+
+  function checkMilestoneCelebration(streak) {
+    if (!MILESTONE_DAYS.includes(streak)) return;
+    const lastCelebrated = localStorage.getItem(`milestone_celebrated_${getUserPrefix()}`);
+    if (lastCelebrated === String(streak)) return; // already celebrated
+
+    const milestone = MILESTONES.find(m => m.days === streak);
+    if (!milestone) return;
+
+    localStorage.setItem(`milestone_celebrated_${getUserPrefix()}`, String(streak));
+    setTimeout(() => showMilestoneModal(milestone, streak), 800);
+  }
+
+  function showMilestoneModal(milestone, streak) {
+    $('milestoneIcon').textContent  = milestone.icon;
+    $('milestoneDays').textContent  = streak;
+    $('milestoneTitle').textContent = milestone.title;
+    $('milestoneVerse').textContent = milestone.verse;
+    $('milestoneModal').classList.add('open');
+    launchConfetti();
+  }
+
+  function closeMilestoneModal() {
+    $('milestoneModal').classList.remove('open');
+  }
+
+  function launchConfetti() {
+    const container = $('milestoneConfetti');
+    container.innerHTML = '';
+    const colors = ['#c9953a','#e8b86d','#f5ddb0','#6b7c5e','#8fa07e','#fff'];
+    for (let i = 0; i < 48; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.cssText = `
+        left: ${Math.random() * 100}%;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        width: ${4 + Math.random() * 8}px;
+        height: ${4 + Math.random() * 8}px;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        animation-duration: ${1.5 + Math.random() * 2}s;
+        animation-delay: ${Math.random() * 0.8}s;
+      `;
+      container.appendChild(piece);
+    }
   }
 
   function calculateStreak() {
@@ -2506,15 +2830,361 @@
     showToast('Fields cleared. Your saved entry is still safe.');
   }
 
-  // ── Verses of the Day Rotation ─────────────────────────
+  // ── Verses of the Day Rotation (365 — KJV) ────────────
   const verses = [
-    { text: "For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "— Jeremiah 29:11" },
-    { text: "Trust in the LORD with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", ref: "— Proverbs 3:5–6" },
-    { text: "I can do all this through him who gives me strength.", ref: "— Philippians 4:13" },
-    { text: "Be still, and know that I am God.", ref: "— Psalm 46:10" },
-    { text: "Come to me, all you who are weary and burdened, and I will give you rest.", ref: "— Matthew 11:28" },
-    { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", ref: "— Romans 8:28" },
-    { text: "The LORD is my shepherd, I lack nothing.", ref: "— Psalm 23:1" },
+    {text:"In the beginning God created the heaven and the earth.",ref:"— Genesis 1:1"},
+    {text:"The LORD is my shepherd; I shall not want.",ref:"— Psalm 23:1"},
+    {text:"Trust in the LORD with all thine heart; and lean not unto thine own understanding.",ref:"— Proverbs 3:5"},
+    {text:"In all thy ways acknowledge him, and he shall direct thy paths.",ref:"— Proverbs 3:6"},
+    {text:"For God so loved the world, that he gave his only begotten Son.",ref:"— John 3:16"},
+    {text:"I can do all things through Christ which strengtheneth me.",ref:"— Philippians 4:13"},
+    {text:"Be still, and know that I am God.",ref:"— Psalm 46:10"},
+    {text:"The LORD is my light and my salvation; whom shall I fear?",ref:"— Psalm 27:1"},
+    {text:"Thy word is a lamp unto my feet, and a light unto my path.",ref:"— Psalm 119:105"},
+    {text:"Fear thou not; for I am with thee: be not dismayed; for I am thy God.",ref:"— Isaiah 41:10"},
+    {text:"I will strengthen thee; yea, I will help thee; yea, I will uphold thee.",ref:"— Isaiah 41:10"},
+    {text:"Come unto me, all ye that labour and are heavy laden, and I will give you rest.",ref:"— Matthew 11:28"},
+    {text:"For I know the thoughts that I think toward you, saith the LORD, thoughts of peace.",ref:"— Jeremiah 29:11"},
+    {text:"And we know that all things work together for good to them that love God.",ref:"— Romans 8:28"},
+    {text:"The LORD bless thee, and keep thee.",ref:"— Numbers 6:24"},
+    {text:"The LORD make his face shine upon thee, and be gracious unto thee.",ref:"— Numbers 6:25"},
+    {text:"Delight thyself also in the LORD: and he shall give thee the desires of thine heart.",ref:"— Psalm 37:4"},
+    {text:"Commit thy way unto the LORD; trust also in him; and he shall bring it to pass.",ref:"— Psalm 37:5"},
+    {text:"Create in me a clean heart, O God; and renew a right spirit within me.",ref:"— Psalm 51:10"},
+    {text:"He healeth the broken in heart, and bindeth up their wounds.",ref:"— Psalm 147:3"},
+    {text:"The LORD is nigh unto them that are of a broken heart.",ref:"— Psalm 34:18"},
+    {text:"Casting all your care upon him; for he careth for you.",ref:"— 1 Peter 5:7"},
+    {text:"Be strong and courageous. Do not be afraid; do not be discouraged.",ref:"— Joshua 1:9"},
+    {text:"For the LORD thy God is with thee whithersoever thou goest.",ref:"— Joshua 1:9"},
+    {text:"But they that wait upon the LORD shall renew their strength.",ref:"— Isaiah 40:31"},
+    {text:"They shall mount up with wings as eagles; they shall run, and not be weary.",ref:"— Isaiah 40:31"},
+    {text:"Draw nigh to God, and he will draw nigh to you.",ref:"— James 4:8"},
+    {text:"If any of you lack wisdom, let him ask of God, that giveth to all men liberally.",ref:"— James 1:5"},
+    {text:"Ask, and it shall be given you; seek, and ye shall find.",ref:"— Matthew 7:7"},
+    {text:"Knock, and it shall be opened unto you.",ref:"— Matthew 7:7"},
+    {text:"This is the day which the LORD hath made; we will rejoice and be glad in it.",ref:"— Psalm 118:24"},
+    {text:"Great is thy faithfulness.",ref:"— Lamentations 3:23"},
+    {text:"It is of the LORD's mercies that we are not consumed.",ref:"— Lamentations 3:22"},
+    {text:"His compassions fail not. They are new every morning.",ref:"— Lamentations 3:22–23"},
+    {text:"The LORD is good, a strong hold in the day of trouble.",ref:"— Nahum 1:7"},
+    {text:"He knoweth them that trust in him.",ref:"— Nahum 1:7"},
+    {text:"What time I am afraid, I will trust in thee.",ref:"— Psalm 56:3"},
+    {text:"In God I have put my trust; I will not fear what flesh can do unto me.",ref:"— Psalm 56:4"},
+    {text:"God is our refuge and strength, a very present help in trouble.",ref:"— Psalm 46:1"},
+    {text:"Thou wilt keep him in perfect peace, whose mind is stayed on thee.",ref:"— Isaiah 26:3"},
+    {text:"Peace I leave with you, my peace I give unto you.",ref:"— John 14:27"},
+    {text:"Let not your heart be troubled, neither let it be afraid.",ref:"— John 14:27"},
+    {text:"The LORD himself doth go before thee; he will be with thee.",ref:"— Deuteronomy 31:8"},
+    {text:"He will not fail thee, neither forsake thee: fear not, neither be dismayed.",ref:"— Deuteronomy 31:8"},
+    {text:"For thou art with me; thy rod and thy staff they comfort me.",ref:"— Psalm 23:4"},
+    {text:"Yea, though I walk through the valley of the shadow of death, I will fear no evil.",ref:"— Psalm 23:4"},
+    {text:"The LORD is my strength and my shield; my heart trusted in him.",ref:"— Psalm 28:7"},
+    {text:"My heart greatly rejoiceth; and with my song will I praise him.",ref:"— Psalm 28:7"},
+    {text:"Bless the LORD, O my soul: and all that is within me, bless his holy name.",ref:"— Psalm 103:1"},
+    {text:"Who forgiveth all thine iniquities; who healeth all thy diseases.",ref:"— Psalm 103:3"},
+    {text:"For as the heaven is high above the earth, so great is his mercy.",ref:"— Psalm 103:11"},
+    {text:"As far as the east is from the west, so far hath he removed our transgressions.",ref:"— Psalm 103:12"},
+    {text:"I am the vine, ye are the branches: he that abideth in me bringeth forth much fruit.",ref:"— John 15:5"},
+    {text:"Without me ye can do nothing.",ref:"— John 15:5"},
+    {text:"Herein is my Father glorified, that ye bear much fruit.",ref:"— John 15:8"},
+    {text:"Greater love hath no man than this, that a man lay down his life for his friends.",ref:"— John 15:13"},
+    {text:"Ye have not chosen me, but I have chosen you.",ref:"— John 15:16"},
+    {text:"That your fruit should remain: that whatsoever ye shall ask of the Father, he may give it.",ref:"— John 15:16"},
+    {text:"Let your light so shine before men, that they may see your good works.",ref:"— Matthew 5:16"},
+    {text:"Blessed are the pure in heart: for they shall see God.",ref:"— Matthew 5:8"},
+    {text:"Blessed are the peacemakers: for they shall be called the children of God.",ref:"— Matthew 5:9"},
+    {text:"Blessed are they that mourn: for they shall be comforted.",ref:"— Matthew 5:4"},
+    {text:"Blessed are the meek: for they shall inherit the earth.",ref:"— Matthew 5:5"},
+    {text:"Seek ye first the kingdom of God, and his righteousness.",ref:"— Matthew 6:33"},
+    {text:"And all these things shall be added unto you.",ref:"— Matthew 6:33"},
+    {text:"Take therefore no thought for the morrow: for the morrow shall take thought.",ref:"— Matthew 6:34"},
+    {text:"Sufficient unto the day is the evil thereof.",ref:"— Matthew 6:34"},
+    {text:"Thou shalt love the LORD thy God with all thy heart, and with all thy soul.",ref:"— Matthew 22:37"},
+    {text:"Thou shalt love thy neighbour as thyself.",ref:"— Matthew 22:39"},
+    {text:"I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live.",ref:"— John 11:25"},
+    {text:"I am the way, the truth, and the life: no man cometh unto the Father, but by me.",ref:"— John 14:6"},
+    {text:"I am the bread of life: he that cometh to me shall never hunger.",ref:"— John 6:35"},
+    {text:"He that believeth on me shall never thirst.",ref:"— John 6:35"},
+    {text:"I am the good shepherd, and know my sheep, and am known of mine.",ref:"— John 10:14"},
+    {text:"My sheep hear my voice, and I know them, and they follow me.",ref:"— John 10:27"},
+    {text:"And I give unto them eternal life; and they shall never perish.",ref:"— John 10:28"},
+    {text:"Neither shall any man pluck them out of my hand.",ref:"— John 10:28"},
+    {text:"In my Father's house are many mansions. I go to prepare a place for you.",ref:"— John 14:2"},
+    {text:"Lo, I am with you alway, even unto the end of the world.",ref:"— Matthew 28:20"},
+    {text:"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving.",ref:"— Philippians 4:6"},
+    {text:"And the peace of God, which passeth all understanding, shall keep your hearts.",ref:"— Philippians 4:7"},
+    {text:"Whatsoever things are true, whatsoever things are honest, think on these things.",ref:"— Philippians 4:8"},
+    {text:"My God shall supply all your need according to his riches in glory.",ref:"— Philippians 4:19"},
+    {text:"I have learned, in whatsoever state I am, therewith to be content.",ref:"— Philippians 4:11"},
+    {text:"Now faith is the substance of things hoped for, the evidence of things not seen.",ref:"— Hebrews 11:1"},
+    {text:"Without faith it is impossible to please him.",ref:"— Hebrews 11:6"},
+    {text:"For he that cometh to God must believe that he is, and that he is a rewarder.",ref:"— Hebrews 11:6"},
+    {text:"Looking unto Jesus the author and finisher of our faith.",ref:"— Hebrews 12:2"},
+    {text:"Let us run with patience the race that is set before us.",ref:"— Hebrews 12:1"},
+    {text:"Let brotherly love continue.",ref:"— Hebrews 13:1"},
+    {text:"Jesus Christ the same yesterday, and to day, and for ever.",ref:"— Hebrews 13:8"},
+    {text:"The LORD will perfect that which concerneth me.",ref:"— Psalm 138:8"},
+    {text:"Thy mercy, O LORD, endureth for ever: forsake not the works of thine own hands.",ref:"— Psalm 138:8"},
+    {text:"I will praise thee; for I am fearfully and wonderfully made.",ref:"— Psalm 139:14"},
+    {text:"Marvellous are thy works; and that my soul knoweth right well.",ref:"— Psalm 139:14"},
+    {text:"Search me, O God, and know my heart: try me, and know my thoughts.",ref:"— Psalm 139:23"},
+    {text:"See if there be any wicked way in me, and lead me in the way everlasting.",ref:"— Psalm 139:24"},
+    {text:"Where can I go from thy spirit? or where shall I flee from thy presence?",ref:"— Psalm 139:7"},
+    {text:"If I take the wings of the morning, and dwell in the uttermost parts of the sea — thou art there.",ref:"— Psalm 139:9–10"},
+    {text:"How precious also are thy thoughts unto me, O God! how great is the sum of them!",ref:"— Psalm 139:17"},
+    {text:"Before I formed thee in the belly I knew thee.",ref:"— Jeremiah 1:5"},
+    {text:"The heart is deceitful above all things. But I the LORD search the heart.",ref:"— Jeremiah 17:9–10"},
+    {text:"Blessed is the man that trusteth in the LORD, and whose hope the LORD is.",ref:"— Jeremiah 17:7"},
+    {text:"For I will restore health unto thee, and I will heal thee of thy wounds, saith the LORD.",ref:"— Jeremiah 30:17"},
+    {text:"Call unto me, and I will answer thee, and shew thee great and mighty things.",ref:"— Jeremiah 33:3"},
+    {text:"For I am persuaded, that neither death, nor life, nor angels, nor principalities, shall separate us from the love of God.",ref:"— Romans 8:38–39"},
+    {text:"If God be for us, who can be against us?",ref:"— Romans 8:31"},
+    {text:"He that spared not his own Son, but delivered him up for us all.",ref:"— Romans 8:32"},
+    {text:"There is therefore now no condemnation to them which are in Christ Jesus.",ref:"— Romans 8:1"},
+    {text:"For the wages of sin is death; but the gift of God is eternal life through Jesus Christ.",ref:"— Romans 6:23"},
+    {text:"All have sinned, and come short of the glory of God.",ref:"— Romans 3:23"},
+    {text:"Being justified freely by his grace through the redemption that is in Christ Jesus.",ref:"— Romans 3:24"},
+    {text:"Therefore being justified by faith, we have peace with God through our Lord Jesus Christ.",ref:"— Romans 5:1"},
+    {text:"The love of God is shed abroad in our hearts by the Holy Ghost.",ref:"— Romans 5:5"},
+    {text:"But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us.",ref:"— Romans 5:8"},
+    {text:"For whosoever shall call upon the name of the Lord shall be saved.",ref:"— Romans 10:13"},
+    {text:"Faith cometh by hearing, and hearing by the word of God.",ref:"— Romans 10:17"},
+    {text:"Present your bodies a living sacrifice, holy, acceptable unto God.",ref:"— Romans 12:1"},
+    {text:"Be not conformed to this world: but be ye transformed by the renewing of your mind.",ref:"— Romans 12:2"},
+    {text:"Rejoice with them that do rejoice, and weep with them that weep.",ref:"— Romans 12:15"},
+    {text:"Be not overcome of evil, but overcome evil with good.",ref:"— Romans 12:21"},
+    {text:"Owe no man any thing, but to love one another.",ref:"— Romans 13:8"},
+    {text:"Love worketh no ill to his neighbour: therefore love is the fulfilling of the law.",ref:"— Romans 13:10"},
+    {text:"The fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith.",ref:"— Galatians 5:22"},
+    {text:"Meekness, temperance: against such there is no law.",ref:"— Galatians 5:23"},
+    {text:"Walk in the Spirit, and ye shall not fulfil the lust of the flesh.",ref:"— Galatians 5:16"},
+    {text:"Bear ye one another's burdens, and so fulfil the law of Christ.",ref:"— Galatians 6:2"},
+    {text:"Be not deceived; God is not mocked: for whatsoever a man soweth, that shall he also reap.",ref:"— Galatians 6:7"},
+    {text:"Let us not be weary in well doing: for in due season we shall reap, if we faint not.",ref:"— Galatians 6:9"},
+    {text:"Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us with all spiritual blessings.",ref:"— Ephesians 1:3"},
+    {text:"For by grace are ye saved through faith; and that not of yourselves: it is the gift of God.",ref:"— Ephesians 2:8"},
+    {text:"Not of works, lest any man should boast.",ref:"— Ephesians 2:9"},
+    {text:"For we are his workmanship, created in Christ Jesus unto good works.",ref:"— Ephesians 2:10"},
+    {text:"Now unto him that is able to do exceeding abundantly above all that we ask or think.",ref:"— Ephesians 3:20"},
+    {text:"Put on the whole armour of God, that ye may be able to stand against the wiles of the devil.",ref:"— Ephesians 6:11"},
+    {text:"Above all, taking the shield of faith, wherewith ye shall be able to quench all the fiery darts.",ref:"— Ephesians 6:16"},
+    {text:"Let all bitterness, and wrath, and anger be put away from you.",ref:"— Ephesians 4:31"},
+    {text:"Be ye kind one to another, tenderhearted, forgiving one another.",ref:"— Ephesians 4:32"},
+    {text:"Even as God for Christ's sake hath forgiven you.",ref:"— Ephesians 4:32"},
+    {text:"That I may know him, and the power of his resurrection.",ref:"— Philippians 3:10"},
+    {text:"I press toward the mark for the prize of the high calling of God in Christ Jesus.",ref:"— Philippians 3:14"},
+    {text:"Rejoice in the Lord alway: and again I say, Rejoice.",ref:"— Philippians 4:4"},
+    {text:"Let your moderation be known unto all men. The Lord is at hand.",ref:"— Philippians 4:5"},
+    {text:"I have learned, in whatsoever state I am, to be content.",ref:"— Philippians 4:11"},
+    {text:"Set your affection on things above, not on things on the earth.",ref:"— Colossians 3:2"},
+    {text:"Let the word of Christ dwell in you richly in all wisdom.",ref:"— Colossians 3:16"},
+    {text:"And whatsoever ye do in word or deed, do all in the name of the Lord Jesus.",ref:"— Colossians 3:17"},
+    {text:"Whatsoever ye do, do it heartily, as to the Lord, and not unto men.",ref:"— Colossians 3:23"},
+    {text:"Continue in prayer, and watch in the same with thanksgiving.",ref:"— Colossians 4:2"},
+    {text:"Pray without ceasing.",ref:"— 1 Thessalonians 5:17"},
+    {text:"In every thing give thanks: for this is the will of God in Christ Jesus concerning you.",ref:"— 1 Thessalonians 5:18"},
+    {text:"Quench not the Spirit.",ref:"— 1 Thessalonians 5:19"},
+    {text:"The Lord is faithful, who shall stablish you, and keep you from evil.",ref:"— 2 Thessalonians 3:3"},
+    {text:"For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.",ref:"— 2 Timothy 1:7"},
+    {text:"All scripture is given by inspiration of God, and is profitable for doctrine.",ref:"— 2 Timothy 3:16"},
+    {text:"For reproof, for correction, for instruction in righteousness.",ref:"— 2 Timothy 3:16"},
+    {text:"I have fought a good fight, I have finished my course, I have kept the faith.",ref:"— 2 Timothy 4:7"},
+    {text:"Henceforth there is laid up for me a crown of righteousness.",ref:"— 2 Timothy 4:8"},
+    {text:"Not by works of righteousness which we have done, but according to his mercy he saved us.",ref:"— Titus 3:5"},
+    {text:"Unto the pure all things are pure.",ref:"— Titus 1:15"},
+    {text:"For the grace of God that bringeth salvation hath appeared to all men.",ref:"— Titus 2:11"},
+    {text:"Teaching us that, denying ungodliness, we should live soberly, righteously, and godly.",ref:"— Titus 2:12"},
+    {text:"The word of God is quick, and powerful, and sharper than any twoedged sword.",ref:"— Hebrews 4:12"},
+    {text:"Let us therefore come boldly unto the throne of grace, that we may obtain mercy.",ref:"— Hebrews 4:16"},
+    {text:"And find grace to help in time of need.",ref:"— Hebrews 4:16"},
+    {text:"Now the God of peace make you perfect in every good work.",ref:"— Hebrews 13:20–21"},
+    {text:"If any man lack wisdom, let him ask of God, that giveth to all men liberally and upbraideth not.",ref:"— James 1:5"},
+    {text:"Let every man be swift to hear, slow to speak, slow to wrath.",ref:"— James 1:19"},
+    {text:"Be ye doers of the word, and not hearers only.",ref:"— James 1:22"},
+    {text:"Pure religion and undefiled before God is this: To visit the fatherless and widows in their affliction.",ref:"— James 1:27"},
+    {text:"Draw nigh to God, and he will draw nigh to you.",ref:"— James 4:8"},
+    {text:"Humble yourselves in the sight of the Lord, and he shall lift you up.",ref:"— James 4:10"},
+    {text:"The effectual fervent prayer of a righteous man availeth much.",ref:"— James 5:16"},
+    {text:"Ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people.",ref:"— 1 Peter 2:9"},
+    {text:"Humble yourselves therefore under the mighty hand of God, that he may exalt you in due time.",ref:"— 1 Peter 5:6"},
+    {text:"Casting all your care upon him; for he careth for you.",ref:"— 1 Peter 5:7"},
+    {text:"Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about.",ref:"— 1 Peter 5:8"},
+    {text:"His divine power hath given unto us all things that pertain unto life and godliness.",ref:"— 2 Peter 1:3"},
+    {text:"The Lord is not slack concerning his promise, as some men count slackness.",ref:"— 2 Peter 3:9"},
+    {text:"But is longsuffering to us-ward, not willing that any should perish.",ref:"— 2 Peter 3:9"},
+    {text:"God is love; and he that dwelleth in love dwelleth in God, and God in him.",ref:"— 1 John 4:16"},
+    {text:"There is no fear in love; but perfect love casteth out fear.",ref:"— 1 John 4:18"},
+    {text:"We love him, because he first loved us.",ref:"— 1 John 4:19"},
+    {text:"This is the confidence that we have in him, that, if we ask any thing according to his will, he heareth us.",ref:"— 1 John 5:14"},
+    {text:"Beloved, I wish above all things that thou mayest prosper and be in health.",ref:"— 3 John 1:2"},
+    {text:"Now unto him that is able to keep you from falling, and to present you faultless.",ref:"— Jude 1:24"},
+    {text:"Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in.",ref:"— Revelation 3:20"},
+    {text:"I am Alpha and Omega, the beginning and the ending, saith the Lord.",ref:"— Revelation 1:8"},
+    {text:"He that overcometh shall inherit all things; and I will be his God, and he shall be my son.",ref:"— Revelation 21:7"},
+    {text:"God shall wipe away all tears from their eyes; and there shall be no more death.",ref:"— Revelation 21:4"},
+    {text:"And God shall wipe away all tears from their eyes; there shall be no more sorrow, nor crying.",ref:"— Revelation 21:4"},
+    {text:"Behold, I make all things new.",ref:"— Revelation 21:5"},
+    {text:"The LORD is righteous in all his ways, and holy in all his works.",ref:"— Psalm 145:17"},
+    {text:"The LORD is nigh unto all them that call upon him, to all that call upon him in truth.",ref:"— Psalm 145:18"},
+    {text:"He will fulfil the desire of them that fear him: he also will hear their cry, and will save them.",ref:"— Psalm 145:19"},
+    {text:"Praise the LORD, O my soul, while I live will I praise the LORD.",ref:"— Psalm 146:2"},
+    {text:"Happy is he that hath the God of Jacob for his help, whose hope is in the LORD his God.",ref:"— Psalm 146:5"},
+    {text:"Praise ye the LORD: for it is good to sing praises unto our God.",ref:"— Psalm 147:1"},
+    {text:"He telleth the number of the stars; he calleth them all by their names.",ref:"— Psalm 147:4"},
+    {text:"Great is our Lord, and of great power: his understanding is infinite.",ref:"— Psalm 147:5"},
+    {text:"Let every thing that hath breath praise the LORD. Praise ye the LORD.",ref:"— Psalm 150:6"},
+    {text:"Praise him with the sound of the trumpet: praise him with the psaltery and harp.",ref:"— Psalm 150:3"},
+    {text:"A merry heart doeth good like a medicine.",ref:"— Proverbs 17:22"},
+    {text:"A friend loveth at all times, and a brother is born for adversity.",ref:"— Proverbs 17:17"},
+    {text:"The name of the LORD is a strong tower: the righteous runneth into it, and is safe.",ref:"— Proverbs 18:10"},
+    {text:"A man's heart deviseth his way: but the LORD directeth his steps.",ref:"— Proverbs 16:9"},
+    {text:"Better is a little with righteousness than great revenues without right.",ref:"— Proverbs 16:8"},
+    {text:"Pride goeth before destruction, and an haughty spirit before a fall.",ref:"— Proverbs 16:18"},
+    {text:"Pleasant words are as an honeycomb, sweet to the soul, and health to the bones.",ref:"— Proverbs 16:24"},
+    {text:"Whoso trusteth in the LORD, happy is he.",ref:"— Proverbs 16:20"},
+    {text:"A soft answer turneth away wrath: but grievous words stir up anger.",ref:"— Proverbs 15:1"},
+    {text:"The eyes of the LORD are in every place, beholding the evil and the good.",ref:"— Proverbs 15:3"},
+    {text:"A word fitly spoken is like apples of gold in pictures of silver.",ref:"— Proverbs 25:11"},
+    {text:"As iron sharpeneth iron; so a man sharpeneth the countenance of his friend.",ref:"— Proverbs 27:17"},
+    {text:"Boast not thyself of to morrow; for thou knowest not what a day may bring forth.",ref:"— Proverbs 27:1"},
+    {text:"The fear of the LORD is the beginning of wisdom.",ref:"— Proverbs 9:10"},
+    {text:"A knowledge of the holy is understanding.",ref:"— Proverbs 9:10"},
+    {text:"Wisdom is the principal thing; therefore get wisdom: and with all thy getting get understanding.",ref:"— Proverbs 4:7"},
+    {text:"The way of the righteous is made plain.",ref:"— Proverbs 15:19"},
+    {text:"Righteousness exalteth a nation: but sin is a reproach to any people.",ref:"— Proverbs 14:34"},
+    {text:"He that walketh with wise men shall be wise.",ref:"— Proverbs 13:20"},
+    {text:"Hope deferred maketh the heart sick: but when the desire cometh, it is a tree of life.",ref:"— Proverbs 13:12"},
+    {text:"Train up a child in the way he should go: and when he is old, he will not depart from it.",ref:"— Proverbs 22:6"},
+    {text:"A good name is rather to be chosen than great riches.",ref:"— Proverbs 22:1"},
+    {text:"He that hath a bountiful eye shall be blessed; for he giveth of his bread to the poor.",ref:"— Proverbs 22:9"},
+    {text:"The liberal soul shall be made fat: and he that watereth shall be watered also himself.",ref:"— Proverbs 11:25"},
+    {text:"Where there is no vision, the people perish.",ref:"— Proverbs 29:18"},
+    {text:"Every word of God is pure: he is a shield unto them that put their trust in him.",ref:"— Proverbs 30:5"},
+    {text:"To every thing there is a season, and a time to every purpose under the heaven.",ref:"— Ecclesiastes 3:1"},
+    {text:"He hath made every thing beautiful in his time.",ref:"— Ecclesiastes 3:11"},
+    {text:"He hath set eternity in the hearts of men.",ref:"— Ecclesiastes 3:11"},
+    {text:"Two are better than one; because they have a good reward for their labour.",ref:"— Ecclesiastes 4:9"},
+    {text:"If they fall, the one will lift up his fellow.",ref:"— Ecclesiastes 4:10"},
+    {text:"Fear God, and keep his commandments: for this is the whole duty of man.",ref:"— Ecclesiastes 12:13"},
+    {text:"Many waters cannot quench love, neither can the floods drown it.",ref:"— Song of Solomon 8:7"},
+    {text:"His banner over me was love.",ref:"— Song of Solomon 2:4"},
+    {text:"The LORD hath anointed me to preach good tidings unto the meek.",ref:"— Isaiah 61:1"},
+    {text:"He hath sent me to bind up the brokenhearted, to proclaim liberty to the captives.",ref:"— Isaiah 61:1"},
+    {text:"To give unto them beauty for ashes, the oil of joy for mourning.",ref:"— Isaiah 61:3"},
+    {text:"The garment of praise for the spirit of heaviness.",ref:"— Isaiah 61:3"},
+    {text:"Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee.",ref:"— Isaiah 26:3"},
+    {text:"With everlasting kindness will I have mercy on thee, saith the LORD thy Redeemer.",ref:"— Isaiah 54:8"},
+    {text:"No weapon that is formed against thee shall prosper.",ref:"— Isaiah 54:17"},
+    {text:"For the mountains shall depart, and the hills be removed; but my kindness shall not depart.",ref:"— Isaiah 54:10"},
+    {text:"Ho, every one that thirsteth, come ye to the waters.",ref:"— Isaiah 55:1"},
+    {text:"Seek ye the LORD while he may be found, call ye upon him while he is near.",ref:"— Isaiah 55:6"},
+    {text:"For my thoughts are not your thoughts, neither are your ways my ways, saith the LORD.",ref:"— Isaiah 55:8"},
+    {text:"So shall my word be that goeth forth out of my mouth: it shall not return unto me void.",ref:"— Isaiah 55:11"},
+    {text:"It shall accomplish that which I please, and it shall prosper in the thing whereto I sent it.",ref:"— Isaiah 55:11"},
+    {text:"Arise, shine; for thy light is come, and the glory of the LORD is risen upon thee.",ref:"— Isaiah 60:1"},
+    {text:"He giveth power to the faint; and to them that have no might he increaseth strength.",ref:"— Isaiah 40:29"},
+    {text:"Hast thou not known? hast thou not heard, that the everlasting God, the LORD, fainteth not?",ref:"— Isaiah 40:28"},
+    {text:"There is no searching of his understanding.",ref:"— Isaiah 40:28"},
+    {text:"I, even I, am he that blotteth out thy transgressions for mine own sake.",ref:"— Isaiah 43:25"},
+    {text:"I will not remember thy sins.",ref:"— Isaiah 43:25"},
+    {text:"Fear not: for I have redeemed thee, I have called thee by thy name; thou art mine.",ref:"— Isaiah 43:1"},
+    {text:"When thou passest through the waters, I will be with thee.",ref:"— Isaiah 43:2"},
+    {text:"When thou walkest through the fire, thou shalt not be burned.",ref:"— Isaiah 43:2"},
+    {text:"I have loved thee with an everlasting love: therefore with lovingkindness have I drawn thee.",ref:"— Jeremiah 31:3"},
+    {text:"Blessed is the man whose strength is in thee; in whose heart are the ways of them.",ref:"— Psalm 84:5"},
+    {text:"They go from strength to strength, every one of them in Zion appeareth before God.",ref:"— Psalm 84:7"},
+    {text:"For a day in thy courts is better than a thousand.",ref:"— Psalm 84:10"},
+    {text:"The LORD God is a sun and shield: the LORD will give grace and glory.",ref:"— Psalm 84:11"},
+    {text:"No good thing will he withhold from them that walk uprightly.",ref:"— Psalm 84:11"},
+    {text:"Surely goodness and mercy shall follow me all the days of my life.",ref:"— Psalm 23:6"},
+    {text:"And I will dwell in the house of the LORD for ever.",ref:"— Psalm 23:6"},
+    {text:"The LORD is my rock, and my fortress, and my deliverer.",ref:"— Psalm 18:2"},
+    {text:"My God, my strength, in whom I will trust.",ref:"— Psalm 18:2"},
+    {text:"With God we shall do valiantly: for he it is that shall tread down our enemies.",ref:"— Psalm 60:12"},
+    {text:"I will sing of the mercies of the LORD for ever.",ref:"— Psalm 89:1"},
+    {text:"With my mouth will I make known thy faithfulness to all generations.",ref:"— Psalm 89:1"},
+    {text:"For the LORD is good; his mercy is everlasting; and his truth endureth to all generations.",ref:"— Psalm 100:5"},
+    {text:"Make a joyful noise unto the LORD, all ye lands.",ref:"— Psalm 100:1"},
+    {text:"Serve the LORD with gladness: come before his presence with singing.",ref:"— Psalm 100:2"},
+    {text:"Know ye that the LORD he is God: it is he that hath made us, and not we ourselves.",ref:"— Psalm 100:3"},
+    {text:"We are his people, and the sheep of his pasture.",ref:"— Psalm 100:3"},
+    {text:"Enter into his gates with thanksgiving, and into his courts with praise.",ref:"— Psalm 100:4"},
+    {text:"O give thanks unto the LORD; for he is good: because his mercy endureth for ever.",ref:"— Psalm 107:1"},
+    {text:"Let the redeemed of the LORD say so, whom he hath redeemed from the hand of the enemy.",ref:"— Psalm 107:2"},
+    {text:"The LORD is on my side; I will not fear: what can man do unto me?",ref:"— Psalm 118:6"},
+    {text:"I will not die, but live, and declare the works of the LORD.",ref:"— Psalm 118:17"},
+    {text:"The stone which the builders refused is become the head stone of the corner.",ref:"— Psalm 118:22"},
+    {text:"Out of the depths have I cried unto thee, O LORD.",ref:"— Psalm 130:1"},
+    {text:"If thou, LORD, shouldest mark iniquities, O Lord, who shall stand?",ref:"— Psalm 130:3"},
+    {text:"But there is forgiveness with thee, that thou mayest be feared.",ref:"— Psalm 130:4"},
+    {text:"My soul waiteth for the Lord more than they that watch for the morning.",ref:"— Psalm 130:6"},
+    {text:"Behold, he that keepeth Israel shall neither slumber nor sleep.",ref:"— Psalm 121:4"},
+    {text:"The LORD shall preserve thy going out and thy coming in from this time forth.",ref:"— Psalm 121:8"},
+    {text:"I will lift up mine eyes unto the hills, from whence cometh my help.",ref:"— Psalm 121:1"},
+    {text:"My help cometh from the LORD, which made heaven and earth.",ref:"— Psalm 121:2"},
+    {text:"Except the LORD build the house, they labour in vain that build it.",ref:"— Psalm 127:1"},
+    {text:"Lo, children are an heritage of the LORD.",ref:"— Psalm 127:3"},
+    {text:"Blessed is every one that feareth the LORD; that walketh in his ways.",ref:"— Psalm 128:1"},
+    {text:"Behold, how good and how pleasant it is for brethren to dwell together in unity!",ref:"— Psalm 133:1"},
+    {text:"O give thanks unto the LORD; for he is good: for his mercy endureth for ever.",ref:"— Psalm 136:1"},
+    {text:"By the rivers of Babylon, there we sat down, yea, we wept, when we remembered Zion.",ref:"— Psalm 137:1"},
+    {text:"If I forget thee, O Jerusalem, let my right hand forget her cunning.",ref:"— Psalm 137:5"},
+    {text:"The LORD will perfect that which concerneth me.",ref:"— Psalm 138:8"},
+    {text:"O LORD, thou hast searched me, and known me.",ref:"— Psalm 139:1"},
+    {text:"Thou knowest my downsitting and mine uprising, thou understandest my thought afar off.",ref:"— Psalm 139:2"},
+    {text:"Let the words of my mouth, and the meditation of my heart, be acceptable in thy sight, O LORD.",ref:"— Psalm 19:14"},
+    {text:"The heavens declare the glory of God; and the firmament sheweth his handywork.",ref:"— Psalm 19:1"},
+    {text:"Day unto day uttereth speech, and night unto night sheweth knowledge.",ref:"— Psalm 19:2"},
+    {text:"The law of the LORD is perfect, converting the soul.",ref:"— Psalm 19:7"},
+    {text:"The testimony of the LORD is sure, making wise the simple.",ref:"— Psalm 19:7"},
+    {text:"The statutes of the LORD are right, rejoicing the heart.",ref:"— Psalm 19:8"},
+    {text:"More to be desired are they than gold, yea, than much fine gold.",ref:"— Psalm 19:10"},
+    {text:"The LORD is my portion, saith my soul; therefore will I hope in him.",ref:"— Lamentations 3:24"},
+    {text:"It is good that a man should both hope and quietly wait for the salvation of the LORD.",ref:"— Lamentations 3:26"},
+    {text:"For the LORD will not cast off for ever.",ref:"— Lamentations 3:31"},
+    {text:"But though he cause grief, yet will he have compassion according to the multitude of his mercies.",ref:"— Lamentations 3:32"},
+    {text:"I called upon thy name, O LORD, out of the low dungeon.",ref:"— Lamentations 3:55"},
+    {text:"Thou drewest near in the day that I called upon thee: thou saidst, Fear not.",ref:"— Lamentations 3:57"},
+    {text:"Yea, I have loved thee with an everlasting love.",ref:"— Jeremiah 31:3"},
+    {text:"Can a woman forget her sucking child? yea, they may forget, yet will I not forget thee.",ref:"— Isaiah 49:15"},
+    {text:"Behold, I have graven thee upon the palms of my hands.",ref:"— Isaiah 49:16"},
+    {text:"How beautiful upon the mountains are the feet of him that bringeth good tidings.",ref:"— Isaiah 52:7"},
+    {text:"He is despised and rejected of men; a man of sorrows, and acquainted with grief.",ref:"— Isaiah 53:3"},
+    {text:"Surely he hath borne our griefs, and carried our sorrows.",ref:"— Isaiah 53:4"},
+    {text:"He was wounded for our transgressions, he was bruised for our iniquities.",ref:"— Isaiah 53:5"},
+    {text:"And with his stripes we are healed.",ref:"— Isaiah 53:5"},
+    {text:"All we like sheep have gone astray; we have turned every one to his own way.",ref:"— Isaiah 53:6"},
+    {text:"And the LORD hath laid on him the iniquity of us all.",ref:"— Isaiah 53:6"},
+    {text:"He is brought as a lamb to the slaughter, and as a sheep before her shearers is dumb.",ref:"— Isaiah 53:7"},
+    {text:"He shall see of the travail of his soul, and shall be satisfied.",ref:"— Isaiah 53:11"},
+    {text:"Therefore will I divide him a portion with the great.",ref:"— Isaiah 53:12"},
+    {text:"The Spirit of the Lord GOD is upon me; because the LORD hath anointed me.",ref:"— Isaiah 61:1"},
+    {text:"For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation.",ref:"— Romans 1:16"},
+    {text:"The just shall live by faith.",ref:"— Romans 1:17"},
+    {text:"Likewise the Spirit also helpeth our infirmities.",ref:"— Romans 8:26"},
+    {text:"The Spirit itself maketh intercession for us with groanings which cannot be uttered.",ref:"— Romans 8:26"},
+    {text:"Nay, in all these things we are more than conquerors through him that loved us.",ref:"— Romans 8:37"},
+    {text:"Now the God of hope fill you with all joy and peace in believing.",ref:"— Romans 15:13"},
+    {text:"That ye may abound in hope, through the power of the Holy Ghost.",ref:"— Romans 15:13"},
+    {text:"Eye hath not seen, nor ear heard, neither have entered into the heart of man, the things which God hath prepared for them that love him.",ref:"— 1 Corinthians 2:9"},
+    {text:"God is faithful, who will not suffer you to be tempted above that ye are able.",ref:"— 1 Corinthians 10:13"},
+    {text:"He will with the temptation also make a way to escape, that ye may be able to bear it.",ref:"— 1 Corinthians 10:13"},
+    {text:"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God.",ref:"— 1 Corinthians 10:31"},
+    {text:"Charity suffereth long, and is kind; charity envieth not.",ref:"— 1 Corinthians 13:4"},
+    {text:"Charity beareth all things, believeth all things, hopeth all things, endureth all things.",ref:"— 1 Corinthians 13:7"},
+    {text:"And now abideth faith, hope, charity, these three; but the greatest of these is charity.",ref:"— 1 Corinthians 13:13"},
+    {text:"O death, where is thy sting? O grave, where is thy victory?",ref:"— 1 Corinthians 15:55"},
+    {text:"But thanks be to God, which giveth us the victory through our Lord Jesus Christ.",ref:"— 1 Corinthians 15:57"},
+    {text:"For we walk by faith, not by sight.",ref:"— 2 Corinthians 5:7"},
+    {text:"Therefore if any man be in Christ, he is a new creature.",ref:"— 2 Corinthians 5:17"},
+    {text:"Old things are passed away; behold, all things are become new.",ref:"— 2 Corinthians 5:17"},
+    {text:"God was in Christ, reconciling the world unto himself.",ref:"— 2 Corinthians 5:19"},
+    {text:"For he hath made him to be sin for us, who knew no sin.",ref:"— 2 Corinthians 5:21"},
+    {text:"That we might be made the righteousness of God in him.",ref:"— 2 Corinthians 5:21"},
+    {text:"My grace is sufficient for thee: for my strength is made perfect in weakness.",ref:"— 2 Corinthians 12:9"},
+    {text:"Most gladly therefore will I rather glory in my infirmities, that the power of Christ may rest upon me.",ref:"— 2 Corinthians 12:9"},
+    {text:"Examine yourselves, whether ye be in the faith; prove your own selves.",ref:"— 2 Corinthians 13:5"},
+    {text:"The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all.",ref:"— 2 Corinthians 13:14"},
   ];
 
   function rotateVerse() {
@@ -2955,7 +3625,7 @@
       const habitsHtml = e.habits ? e.habits.map((done, i) =>
         `<span class="entry-habit-pip ${done ? 'done' : 'undone'}">${HABIT_LABELS[i]}</span>`
       ).join('') : '';
-      return `<div class="entry-card" onclick="openDetailModal('${e.date}')">
+      return `<div class="entry-card" id="card-${e.date}" onclick="openDetailModal('${e.date}')">
         <div class="entry-card-top">
           <div class="entry-date-badge">
             <div class="entry-date-day">${fd.day}</div>
@@ -2965,11 +3635,49 @@
             <div class="entry-ref">${e.bibleRef ? e.bibleRef : '<span class="entry-ref-empty">No reference</span>'}</div>
             ${preview ? `<div class="entry-preview">${preview.replace(/</g,'&lt;')}</div>` : ''}
           </div>
-          <div class="entry-arrow">›</div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0;">
+            <div class="entry-arrow">›</div>
+            <button class="entry-delete-btn" id="delbtn-${e.date}" onclick="handleDeleteBtn(event,'${e.date}')" title="Delete entry">🗑️</button>
+            <span class="entry-delete-confirm" id="delconfirm-${e.date}" style="display:none;">
+              <button class="entry-delete-yes" onclick="handleDeleteConfirm(event,'${e.date}')">Yes, delete</button>
+              <button class="entry-delete-no" onclick="handleDeleteCancel(event,'${e.date}')">Cancel</button>
+            </span>
+          </div>
         </div>
         ${habitsHtml ? `<div class="entry-habits-row">${habitsHtml}</div>` : ''}
       </div>`;
     }).join('');
+  }
+
+  function handleDeleteBtn(e, dateStr) {
+    e.stopPropagation();
+    // Show inline confirm
+    document.getElementById(`delbtn-${dateStr}`).style.display = 'none';
+    document.getElementById(`delconfirm-${dateStr}`).style.display = 'flex';
+    // Auto-cancel after 4 seconds if no action
+    setTimeout(() => handleDeleteCancel(new Event('click'), dateStr), 4000);
+  }
+
+  function handleDeleteConfirm(e, dateStr) {
+    e.stopPropagation();
+    deleteEntry(dateStr);
+  }
+
+  function handleDeleteCancel(e, dateStr) {
+    e.stopPropagation();
+    const btn     = document.getElementById(`delbtn-${dateStr}`);
+    const confirm = document.getElementById(`delconfirm-${dateStr}`);
+    if (btn)     btn.style.display     = 'block';
+    if (confirm) confirm.style.display = 'none';
+  }
+
+  function deleteEntry(dateStr) {
+    const prefix = getUserPrefix();
+    localStorage.removeItem(`devotional_${prefix}_${dateStr}`);
+    localStorage.removeItem(`habits_${prefix}_${dateStr}`);
+    renderHistory();
+    updateStreak();
+    showToast('✦  Entry deleted.');
   }
 
   // ── Entry Detail Modal ─────────────────────────────────
