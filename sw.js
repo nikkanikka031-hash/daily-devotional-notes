@@ -1,14 +1,16 @@
 // Daily Devotional Notes — Service Worker
-// Version 1.0 — R. Dalisay
+// Version 1.1 — Marikit
 
-const CACHE_NAME = 'devotional-notes-v1';
+const CACHE_NAME = 'devotional-notes-v2';
+const BASE = '/daily-devotional-notes';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  `${BASE}/`,
+  `${BASE}/index.html`,
+  `${BASE}/manifest.json`,
+  `${BASE}/icon-192.png`,
+  `${BASE}/icon-512.png`
 ];
 
-// Install — cache core assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
@@ -16,7 +18,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate — clean old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -26,9 +27,7 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch — serve from cache, fallback to network
 self.addEventListener('fetch', event => {
-  // Skip non-GET and external requests (Google Fonts, Analytics, Supabase)
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== location.origin) return;
@@ -36,13 +35,12 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cached => {
       return cached || fetch(event.request).then(response => {
-        // Cache successful HTML/CSS/JS responses
         if (response && response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
       });
-    }).catch(() => caches.match('/index.html'))
+    }).catch(() => caches.match(`${BASE}/index.html`))
   );
 });
