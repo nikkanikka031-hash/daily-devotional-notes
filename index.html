@@ -1236,103 +1236,51 @@
   @media (max-width: 640px) {
     .bible-reader-top { grid-template-columns: 1fr 1fr; }
   }
-  /* ─── DASHBOARD ─── */
-  .dash-stat-card {
-    background: linear-gradient(135deg, #2c1f0e, #4a3728);
-    border-radius: 14px;
-    padding: 20px 16px;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(44,31,14,0.2);
-  }
-  .dash-stat-icon { font-size: 1.4rem; margin-bottom: 8px; }
-  .dash-stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--gold-light);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .dash-stat-label {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #c9b08a;
-    opacity: 0.75;
-  }
-  .dash-share-card {
+  /* ─── COMMUNITY TAB ─── */
+  .share-platform-card {
     background: rgba(245,230,204,0.3);
     border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: 14px;
+    padding: 18px 16px;
     text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
   }
-  .dash-share-card:hover { border-color: var(--gold-light); background: rgba(245,230,204,0.5); transform: translateY(-1px); }
-  .dash-share-card:active { transform: scale(0.97); }
-  .dash-share-label {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.85rem;
-    color: var(--ink-medium);
-    margin: 4px 0;
+  .share-platform-card:hover {
+    border-color: var(--gold-light);
+    background: rgba(245,230,204,0.55);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--shadow-warm);
   }
-  .dash-share-count {
+  .share-platform-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--gold-dark);
-    line-height: 1;
-  }
-  .dash-share-tap {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.68rem;
-    color: var(--ink-light);
-    opacity: 0.6;
-    margin-top: 4px;
-    letter-spacing: 0.04em;
-  }
-  .dash-goal-card {
-    background: rgba(245,230,204,0.25);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-  }
-  .dash-goal-label {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.8rem;
-    color: var(--ink-light);
-    margin-bottom: 8px;
-    letter-spacing: 0.03em;
-  }
-  .dash-goal-input {
-    width: 100%;
-    background: rgba(255,255,255,0.5);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
+    font-size: 0.88rem;
     color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
+    font-weight: 600;
   }
-  .dash-goal-input:focus { border-color: var(--gold); }
+  .share-platform-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    opacity: 0.7;
+  }
   .testimony-item {
     background: rgba(245,230,204,0.3);
     border-left: 3px solid var(--gold);
     border-radius: 0 10px 10px 0;
-    padding: 12px 16px;
-    margin-bottom: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
     position: relative;
   }
   .testimony-text {
     font-family: 'Lora', serif;
     font-size: 0.88rem;
     color: var(--ink-medium);
-    line-height: 1.65;
+    line-height: 1.7;
     font-style: italic;
   }
   .testimony-date {
@@ -1866,58 +1814,6 @@
   </div>
 </div>
  
-<!-- Profile Button -->
-<button class="profile-btn" id="profileBtn" onclick="openProfileModal()" title="Personalize your journal">👤</button>
- 
-<!-- Profile Modal -->
-<div class="modal-overlay" id="profileModal" onclick="handleOverlayClick(event)">
-  <div class="profile-modal">
-    <div class="modal-top">
-      <button class="modal-close" onclick="closeProfileModal()">✕</button>
-    </div>
-    <div class="modal-title">Your Profile</div>
-    <div class="modal-subtitle">Personalize your devotional journal</div>
- 
-    <!-- Avatar -->
-    <div class="avatar-row">
-      <div class="avatar-preview" id="avatarPreview">?</div>
-      <div>
-        <div class="modal-label" style="margin-bottom:8px">Choose your colour</div>
-        <div class="avatar-colors" id="colorPicker">
-          <div class="color-dot active" style="background:#9e7228" data-color="#9e7228" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#6b7c5e" data-color="#6b7c5e" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#5c6e8a" data-color="#5c6e8a" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#8a5c6e" data-color="#8a5c6e" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#6e5c8a" data-color="#6e5c8a" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#8a6e3a" data-color="#8a6e3a" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#3a6e6e" data-color="#3a6e6e" onclick="selectColor(this)"></div>
-          <div class="color-dot" style="background:#4a4a4a" data-color="#4a4a4a" onclick="selectColor(this)"></div>
-        </div>
-      </div>
-    </div>
- 
-    <div class="modal-form-group">
-      <label class="modal-label">✦ Your Name</label>
-      <input type="text" id="profileName" placeholder="e.g. Grace, Emmanuel, Maria…" maxlength="40">
-    </div>
- 
-    <div class="modal-form-group">
-      <label class="modal-label">🕊️ Personal Motto or Life Verse</label>
-      <input type="text" id="profileMotto" placeholder="e.g. "I can do all things through Christ…"" maxlength="100">
-    </div>
- 
-    <div class="modal-divider"></div>
- 
-    <div class="modal-form-group" style="margin-bottom:0">
-      <label class="modal-label">🌿 What brings you to devotion today?</label>
-      <input type="text" id="profileIntent" placeholder="e.g. Seeking peace, Growing in faith…" maxlength="80">
-    </div>
- 
-    <button class="modal-save-btn" onclick="saveProfile()">✦ Save My Profile</button>
-    <p class="welcome-hint">Your details are saved privately on this device only.</p>
-  </div>
-</div>
- 
 <!-- Scripture Banner -->
 <div class="scripture-banner">
   "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
@@ -1957,8 +1853,8 @@
     <button class="tab-btn" id="tabHistory" onclick="switchTab('history')">
       📜 My Journal Archive
     </button>
-    <button class="tab-btn" id="tabDashboard" onclick="switchTab('dashboard')">
-      📊 My Dashboard
+    <button class="tab-btn" id="tabCommunity" onclick="switchTab('community')">
+      🌿 Blessings & Reach
     </button>
   </div>
  
@@ -2148,166 +2044,69 @@
  
   </div><!-- end #paneHistory -->
  
-  <!-- DASHBOARD TAB -->
-  <div class="tab-pane" id="paneDashboard">
+  <!-- COMMUNITY TAB -->
+  <div class="tab-pane" id="paneCommunity">
  
-    <!-- PIN GATE -->
-    <div id="dashPinGate" class="section-card" style="text-align:center; padding:40px 32px;">
-      <div style="font-size:2rem; margin-bottom:12px;">🔐</div>
-      <div style="font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--ink); margin-bottom:6px;">Private Dashboard</div>
-      <div style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.9rem; color:var(--ink-light); margin-bottom:24px;">Enter your PIN to view your ministry stats</div>
-      <div style="display:flex; gap:10px; justify-content:center; margin-bottom:16px;">
-        <input type="password" id="dashPinInput" maxlength="6" placeholder="Enter PIN"
-          style="text-align:center; max-width:160px; letter-spacing:0.2em; font-size:1.1rem;"
-          onkeydown="if(event.key==='Enter') checkDashPin()">
-        <button class="btn btn-primary" onclick="checkDashPin()">Unlock ›</button>
+    <!-- Share & Reach -->
+    <div class="section-card" style="margin-bottom:20px;">
+      <div class="section-header">
+        <div class="section-icon">🌍</div>
+        <h2 class="section-title">Share & Reach</h2>
+        <span class="section-badge">Spread the Word</span>
       </div>
-      <div id="dashPinError" style="font-family:'Crimson Pro',serif; font-size:0.85rem; color:#a83232; display:none;">Incorrect PIN. Try again.</div>
-      <div style="font-family:'Crimson Pro',serif; font-size:0.78rem; color:var(--ink-light); margin-top:12px; opacity:0.6;">
-        Default PIN: <strong>777777</strong> — change it inside the dashboard
+      <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.95rem; color:var(--ink-light); line-height:1.75; margin-bottom:20px;">
+        "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven." — Matthew 5:16
+      </p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://devotional-notes-rdalisay.netlify.app" target="_blank" class="share-platform-card">
+          <span style="font-size:1.6rem;">📘</span>
+          <div class="share-platform-name">Share on Facebook</div>
+          <div class="share-platform-sub">Let your friends know</div>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=I%27ve%20been%20using%20this%20beautiful%20Daily%20Devotional%20Notes%20app%20to%20grow%20in%20my%20faith%20daily!&url=https://devotional-notes-rdalisay.netlify.app" target="_blank" class="share-platform-card">
+          <span style="font-size:1.6rem;">🐦</span>
+          <div class="share-platform-name">Share on X / Twitter</div>
+          <div class="share-platform-sub">Post your testimony</div>
+        </a>
+        <a href="whatsapp://send?text=I%27ve%20been%20using%20this%20beautiful%20Daily%20Devotional%20Notes%20app!%20Try%20it%3A%20https://devotional-notes-rdalisay.netlify.app" target="_blank" class="share-platform-card">
+          <span style="font-size:1.6rem;">💬</span>
+          <div class="share-platform-name">Share on WhatsApp</div>
+          <div class="share-platform-sub">Send to a friend</div>
+        </a>
+        <div class="share-platform-card" onclick="copyAppLink()" style="cursor:pointer;">
+          <span style="font-size:1.6rem;">🔗</span>
+          <div class="share-platform-name">Copy App Link</div>
+          <div class="share-platform-sub" id="copyLinkLabel">Tap to copy</div>
+        </div>
+      </div>
+      <div class="encourage-box" style="margin-top:20px;">
+        Every time you share this app, you are inviting someone into a daily habit of seeking God.
+        That is a beautiful act of love. 🌱
       </div>
     </div>
  
-    <!-- DASHBOARD CONTENT (hidden until unlocked) -->
-    <div id="dashContent" style="display:none;">
- 
-      <!-- Stats Row -->
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px;" id="dashStatsGrid">
-        <div class="dash-stat-card">
-          <div class="dash-stat-icon">📖</div>
-          <div class="dash-stat-num" id="dsTotalEntries">0</div>
-          <div class="dash-stat-label">Total Entries</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-icon">🔥</div>
-          <div class="dash-stat-num" id="dsCurrentStreak">0</div>
-          <div class="dash-stat-label">Current Streak</div>
-        </div>
-        <div class="dash-stat-card">
-          <div class="dash-stat-icon">📅</div>
-          <div class="dash-stat-num" id="dsDaysActive">0</div>
-          <div class="dash-stat-label">Days Active</div>
-        </div>
+    <!-- Testimonies & Feedback -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">💬</div>
+        <h2 class="section-title">Testimonies & Feedback</h2>
+        <span class="section-badge">Blessings</span>
       </div>
- 
-      <!-- Shares Tracker -->
-      <div class="section-card" style="margin-bottom:16px;">
-        <div class="section-header">
-          <div class="section-icon">🌍</div>
-          <h2 class="section-title">Shares & Reach</h2>
-          <span class="section-badge">Tracker</span>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-          <div class="dash-share-card" onclick="incrementShare('facebook')">
-            <span style="font-size:1.4rem;">📘</span>
-            <div class="dash-share-label">Facebook</div>
-            <div class="dash-share-count" id="share-facebook">0</div>
-            <div class="dash-share-tap">tap to record a share</div>
-          </div>
-          <div class="dash-share-card" onclick="incrementShare('instagram')">
-            <span style="font-size:1.4rem;">📸</span>
-            <div class="dash-share-label">Instagram</div>
-            <div class="dash-share-count" id="share-instagram">0</div>
-            <div class="dash-share-tap">tap to record a share</div>
-          </div>
-          <div class="dash-share-card" onclick="incrementShare('tiktok')">
-            <span style="font-size:1.4rem;">🎵</span>
-            <div class="dash-share-label">TikTok</div>
-            <div class="dash-share-count" id="share-tiktok">0</div>
-            <div class="dash-share-tap">tap to record a share</div>
-          </div>
-          <div class="dash-share-card" onclick="incrementShare('church')">
-            <span style="font-size:1.4rem;">⛪</span>
-            <div class="dash-share-label">Church / Groups</div>
-            <div class="dash-share-count" id="share-church">0</div>
-            <div class="dash-share-tap">tap to record a share</div>
-          </div>
-        </div>
-        <div style="background:rgba(201,149,58,0.08); border-radius:10px; padding:12px 16px; font-family:'Crimson Pro',serif; font-size:0.9rem; color:var(--ink-medium);">
-          Total shares: <strong id="totalShares" style="color:var(--gold-dark);">0</strong> &nbsp;·&nbsp;
-          Every share plants a seed. 🌱
-        </div>
+      <p style="font-family:'Crimson Pro',serif; font-style:italic; font-size:0.92rem; color:var(--ink-light); line-height:1.7; margin-bottom:18px;">
+        Record every kind word, testimony, or feedback you receive. These are reminders
+        that God is using this little app for His glory. 🙏
+      </p>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>✦ Write a testimony or feedback</label>
+        <textarea id="testimonyInput" placeholder="e.g. A friend told me this app helped her get back into her daily devotional… or write your own personal testimony about how this has blessed you." style="min-height:100px;"></textarea>
       </div>
+      <button class="btn btn-primary" onclick="saveTestimony()" style="margin-bottom:24px;">
+        <span>💛</span> Save This Blessing
+      </button>
+      <div id="testimonyList"></div>
+    </div>
  
-      <!-- Testimonies -->
-      <div class="section-card" style="margin-bottom:16px;">
-        <div class="section-header">
-          <div class="section-icon">💬</div>
-          <h2 class="section-title">Testimonies & Feedback</h2>
-          <span class="section-badge">Blessings</span>
-        </div>
-        <div class="form-group" style="margin-bottom:12px;">
-          <label>✦ Record a testimony or feedback you received</label>
-          <textarea id="testimonyInput" placeholder="e.g. A friend told me this app helped her get back into her daily devotional…" style="min-height:90px;"></textarea>
-        </div>
-        <button class="btn btn-primary" onclick="saveTestimony()" style="margin-bottom:20px;">
-          <span>💾</span> Save Testimony
-        </button>
-        <div id="testimonyList"></div>
-      </div>
- 
-      <!-- Goals -->
-      <div class="section-card" style="margin-bottom:16px;">
-        <div class="section-header">
-          <div class="section-icon">🎯</div>
-          <h2 class="section-title">Ministry Goals</h2>
-          <span class="section-badge">Vision</span>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="dash-goal-card">
-            <div class="dash-goal-label">🙏 Users to reach</div>
-            <input type="number" class="dash-goal-input" id="goalUsers" placeholder="e.g. 100" oninput="saveGoals()">
-          </div>
-          <div class="dash-goal-card">
-            <div class="dash-goal-label">📖 Churches to share with</div>
-            <input type="number" class="dash-goal-input" id="goalChurches" placeholder="e.g. 10" oninput="saveGoals()">
-          </div>
-          <div class="dash-goal-card">
-            <div class="dash-goal-label">📅 Days to stay consistent</div>
-            <input type="number" class="dash-goal-input" id="goalDays" placeholder="e.g. 30" oninput="saveGoals()">
-          </div>
-          <div class="dash-goal-card">
-            <div class="dash-goal-label">💬 Testimonies to collect</div>
-            <input type="number" class="dash-goal-input" id="goalTestimonies" placeholder="e.g. 20" oninput="saveGoals()">
-          </div>
-        </div>
-      </div>
- 
-      <!-- Google Analytics Link -->
-      <div class="section-card" style="margin-bottom:16px;">
-        <div class="section-header">
-          <div class="section-icon">📈</div>
-          <h2 class="section-title">Live Visitor Stats</h2>
-          <span class="section-badge">Google Analytics</span>
-        </div>
-        <p style="font-family:'Crimson Pro',serif; font-size:0.92rem; color:var(--ink-medium); line-height:1.7; margin-bottom:16px;">
-          Your Google Analytics (G-WE1N7RWNNX) is connected and tracking live visitors.
-          View your full stats on the Analytics dashboard.
-        </p>
-        <a href="https://analytics.google.com" target="_blank" class="btn btn-primary" style="text-decoration:none; display:inline-flex;">
-          <span>📊</span> Open Google Analytics
-        </a>
-      </div>
- 
-      <!-- Change PIN -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon">🔐</div>
-          <h2 class="section-title">Change Dashboard PIN</h2>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <input type="password" id="newPinInput" maxlength="6" placeholder="New PIN (numbers only)"
-            style="max-width:200px; letter-spacing:0.15em;" class="form-control">
-          <button class="btn btn-secondary" onclick="changeDashPin()">Update PIN</button>
-        </div>
-      </div>
- 
-      <div class="btn-row" style="margin-top:8px;">
-        <button class="btn btn-danger" onclick="lockDashboard()"><span>🔒</span> Lock Dashboard</button>
-      </div>
- 
-    </div><!-- end dashContent -->
-  </div><!-- end #paneDashboard -->
+  </div><!-- end #paneCommunity -->
  
   <!-- FOOTER -->
   <footer>
@@ -2598,31 +2397,20 @@
  
   function applyProfile(profile) {
     const greeting = $('headerGreeting');
-    const btn      = $('profileBtn');
     const subtitle = $('appSubtitle');
  
     if (profile.name) {
       greeting.textContent = `${getTimeGreeting()}, ${profile.name} ✦`;
       greeting.classList.add('visible');
-      btn.textContent = profile.name[0].toUpperCase();
-      btn.style.background = `linear-gradient(135deg, ${profile.color || '#9e7228'}, ${profile.color || '#c9953a'})`;
     } else {
       greeting.textContent = '';
       greeting.classList.remove('visible');
-      btn.textContent = '👤';
-      btn.style.background = '';
     }
  
     if (profile.motto) {
       subtitle.textContent = `"${profile.motto}"`;
     } else {
       subtitle.textContent = 'Read the Bible, reflect, pray, and grow daily with God';
-    }
- 
-    // Show welcome modal on first-ever visit
-    if (!profile.name && !localStorage.getItem('devotional_welcomed')) {
-      localStorage.setItem('devotional_welcomed', '1');
-      setTimeout(() => openProfileModal(), 700);
     }
   }
  
@@ -2743,74 +2531,26 @@
     if (tab === 'dashboard') renderDashboard();
   }
  
-  // ── Dashboard ──────────────────────────────────────────
-  const DEFAULT_PIN = '777777';
- 
-  function checkDashPin() {
-    const pin     = $('dashPinInput').value;
-    const savedPin = localStorage.getItem('dash_pin') || DEFAULT_PIN;
-    if (pin === savedPin) {
-      $('dashPinGate').style.display    = 'none';
-      $('dashContent').style.display    = 'block';
-      $('dashPinError').style.display   = 'none';
-      $('dashPinInput').value           = '';
-      renderDashboard();
-    } else {
-      $('dashPinError').style.display = 'block';
-      $('dashPinInput').value = '';
-    }
-  }
- 
-  function lockDashboard() {
-    $('dashPinGate').style.display  = 'block';
-    $('dashContent').style.display  = 'none';
-  }
- 
-  function changeDashPin() {
-    const val = $('newPinInput').value.trim();
-    if (!val || val.length < 4) { showToast('PIN must be at least 4 digits.'); return; }
-    localStorage.setItem('dash_pin', val);
-    $('newPinInput').value = '';
-    showToast('✦  PIN updated successfully!');
-  }
- 
-  function renderDashboard() {
-    // Stats
-    const entries = getAllEntries();
-    $('dsTotalEntries').textContent  = entries.length;
-    $('dsCurrentStreak').textContent = calculateStreak();
-    $('dsDaysActive').textContent    = entries.length;
- 
-    // Shares
-    const shares = JSON.parse(localStorage.getItem('dash_shares') || '{}');
-    ['facebook','instagram','tiktok','church'].forEach(p => {
-      const el = $(`share-${p}`);
-      if (el) el.textContent = shares[p] || 0;
+  // ── Tab Switching ──────────────────────────────────────
+  function switchTab(tab) {
+    ['today','history','community'].forEach(t => {
+      const btn  = $(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`);
+      const pane = $(`pane${t.charAt(0).toUpperCase()+t.slice(1)}`);
+      if (btn)  btn.classList.toggle('active',  t === tab);
+      if (pane) pane.classList.toggle('active', t === tab);
     });
-    const total = Object.values(shares).reduce((a,b) => a + (b||0), 0);
-    $('totalShares').textContent = total;
- 
-    // Testimonies
-    renderTestimonies();
- 
-    // Goals
-    const goals = JSON.parse(localStorage.getItem('dash_goals') || '{}');
-    if (goals.users)        $('goalUsers').value       = goals.users;
-    if (goals.churches)     $('goalChurches').value    = goals.churches;
-    if (goals.days)         $('goalDays').value        = goals.days;
-    if (goals.testimonies)  $('goalTestimonies').value = goals.testimonies;
+    if (tab === 'history')   renderHistory();
+    if (tab === 'community') renderTestimonies();
   }
  
-  function incrementShare(platform) {
-    const shares = JSON.parse(localStorage.getItem('dash_shares') || '{}');
-    shares[platform] = (shares[platform] || 0) + 1;
-    localStorage.setItem('dash_shares', JSON.stringify(shares));
-    $(`share-${platform}`).textContent = shares[platform];
-    const total = Object.values(shares).reduce((a,b) => a + (b||0), 0);
-    $('totalShares').textContent = total;
-    showToast(`✦  ${platform.charAt(0).toUpperCase()+platform.slice(1)} share recorded!`);
-    // Track in GA
-    if (typeof gtag !== 'undefined') gtag('event', 'share', { platform });
+  // ── Community Tab ──────────────────────────────────────
+  function copyAppLink() {
+    navigator.clipboard.writeText('https://devotional-notes-rdalisay.netlify.app')
+      .then(() => {
+        $('copyLinkLabel').textContent = 'Copied! ✓';
+        setTimeout(() => $('copyLinkLabel').textContent = 'Tap to copy', 2500);
+        showToast('✦  Link copied! Share it with someone today.');
+      });
   }
  
   function saveTestimony() {
@@ -2825,7 +2565,7 @@
     localStorage.setItem('dash_testimonies', JSON.stringify(testimonies));
     $('testimonyInput').value = '';
     renderTestimonies();
-    showToast('✦  Testimony saved! Every blessing recorded matters.');
+    showToast('✦  Blessing saved! Every testimony matters. 🙏');
   }
  
   function deleteTestimony(id) {
@@ -2836,11 +2576,12 @@
   }
  
   function renderTestimonies() {
-    const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
     const list = $('testimonyList');
     if (!list) return;
+    const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
     if (!testimonies.length) {
-      list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.9rem; opacity:0.6; text-align:center; padding:16px 0;">No testimonies recorded yet. Every kind word is worth saving. 🙏</div>`;
+      list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
+        No testimonies yet — every blessing is worth recording. 🌿</div>`;
       return;
     }
     list.innerHTML = testimonies.map(t => `
@@ -2849,16 +2590,6 @@
         <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
         <div class="testimony-date">${t.date}</div>
       </div>`).join('');
-  }
- 
-  function saveGoals() {
-    const goals = {
-      users:       $('goalUsers').value,
-      churches:    $('goalChurches').value,
-      days:        $('goalDays').value,
-      testimonies: $('goalTestimonies').value,
-    };
-    localStorage.setItem('dash_goals', JSON.stringify(goals));
   }
  
   // ── Tab Switching (old, replaced above) ───────────────
