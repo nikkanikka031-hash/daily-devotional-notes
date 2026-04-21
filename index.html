@@ -32,11 +32,11 @@
     --shadow-warm: rgba(160, 100, 40, 0.12);
     --shadow-gold: rgba(201, 149, 58, 0.2);
   }
- 
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   html { scroll-behavior: smooth; }
- 
+
   body {
     background-color: var(--cream);
     color: var(--ink);
@@ -45,7 +45,7 @@
     position: relative;
     overflow-x: hidden;
   }
- 
+
   /* Parchment texture overlay */
   body::before {
     content: '';
@@ -57,7 +57,7 @@
     z-index: 0;
     opacity: 0.6;
   }
- 
+
   /* Decorative corner flourishes */
   body::after {
     content: '';
@@ -68,7 +68,7 @@
     pointer-events: none;
     z-index: 0;
   }
- 
+
   /* ─── LAYOUT ─── */
   .page-wrapper {
     position: relative;
@@ -77,7 +77,7 @@
     margin: 0 auto;
     padding: 0 20px 60px;
   }
- 
+
   /* ─── SCRIPTURE BANNER ─── */
   .scripture-banner {
     background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--amber) 100%);
@@ -101,14 +101,14 @@
     margin-left: 10px;
     opacity: 0.7;
   }
- 
+
   /* ─── HEADER ─── */
   header {
     text-align: center;
     padding: 52px 20px 36px;
     position: relative;
   }
- 
+
   .header-ornament {
     font-size: 1.6rem;
     color: var(--gold);
@@ -117,7 +117,7 @@
     opacity: 0.7;
     animation: fadeDown 0.8s ease both;
   }
- 
+
   .app-title {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(2rem, 5vw, 3.2rem);
@@ -127,12 +127,12 @@
     line-height: 1.1;
     animation: fadeDown 0.8s 0.1s ease both;
   }
- 
+
   .app-title span {
     color: var(--gold-dark);
     font-style: italic;
   }
- 
+
   .app-subtitle {
     font-family: 'Crimson Pro', serif;
     font-size: 1.1rem;
@@ -142,7 +142,7 @@
     letter-spacing: 0.02em;
     animation: fadeDown 0.8s 0.2s ease both;
   }
- 
+
   .header-divider {
     display: flex;
     align-items: center;
@@ -162,7 +162,7 @@
     color: var(--gold);
     font-size: 1rem;
   }
- 
+
   /* ─── STREAK CARD ─── */
   .streak-bar {
     background: linear-gradient(135deg, #2c1f0e, #4a3728);
@@ -209,7 +209,7 @@
     text-align: right;
     max-width: 240px;
   }
- 
+
   /* ─── SECTION CARDS ─── */
   .section-card {
     background: var(--warm-white);
@@ -222,7 +222,7 @@
     position: relative;
     overflow: hidden;
   }
- 
+
   .section-card::before {
     content: '';
     position: absolute;
@@ -233,13 +233,13 @@
     transition: opacity 0.3s;
   }
   .section-card:focus-within::before { opacity: 1; }
- 
+
   .section-card:nth-child(2) { animation-delay: 0.1s; }
   .section-card:nth-child(3) { animation-delay: 0.2s; }
   .section-card:nth-child(4) { animation-delay: 0.3s; }
   .section-card:nth-child(5) { animation-delay: 0.4s; }
   .section-card:nth-child(6) { animation-delay: 0.5s; }
- 
+
   .section-header {
     display: flex;
     align-items: center;
@@ -248,7 +248,7 @@
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
- 
+
   .section-icon {
     width: 40px; height: 40px;
     border-radius: 10px;
@@ -258,7 +258,7 @@
     flex-shrink: 0;
     box-shadow: 0 3px 12px var(--shadow-gold);
   }
- 
+
   .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
@@ -266,7 +266,7 @@
     color: var(--ink);
     letter-spacing: -0.01em;
   }
- 
+
   .section-badge {
     margin-left: auto;
     font-family: 'Crimson Pro', serif;
@@ -279,7 +279,7 @@
     padding: 3px 10px;
     border-radius: 20px;
   }
- 
+
   /* ─── FORM ELEMENTS ─── */
   .form-row {
     display: grid;
@@ -288,13 +288,13 @@
     margin-bottom: 16px;
   }
   .form-row.single { grid-template-columns: 1fr; }
- 
+
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
- 
+
   label {
     font-family: 'Crimson Pro', serif;
     font-size: 0.78rem;
@@ -303,7 +303,7 @@
     color: var(--ink-light);
     font-weight: 400;
   }
- 
+
   input[type="text"],
   input[type="date"],
   textarea {
@@ -320,27 +320,27 @@
     outline: none;
   }
   input[type="date"] { cursor: pointer; }
- 
+
   input:focus, textarea:focus {
     border-color: var(--gold);
     background: rgba(253,246,236,0.8);
     box-shadow: 0 0 0 3px rgba(201,149,58,0.12);
   }
- 
+
   textarea {
     min-height: 120px;
     line-height: 1.7;
   }
- 
+
   textarea.large { min-height: 180px; }
   textarea.prayer { min-height: 150px; }
- 
+
   ::placeholder {
     color: #b8a080;
     font-style: italic;
     font-size: 0.88rem;
   }
- 
+
   /* ─── VERSE CARD ─── */
   .verse-card {
     background: linear-gradient(135deg, #3d2b10 0%, #5a3e1a 40%, #3d2b10 100%);
@@ -386,7 +386,7 @@
     text-align: right;
     opacity: 0.85;
   }
- 
+
   /* ─── PROMPT PILLS ─── */
   .prompt-list {
     list-style: none;
@@ -410,14 +410,14 @@
     flex-shrink: 0;
     margin-top: 1px;
   }
- 
+
   /* ─── HABIT TRACKER ─── */
   .habit-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
- 
+
   .habit-item {
     display: flex;
     align-items: center;
@@ -435,7 +435,7 @@
     background: linear-gradient(135deg, rgba(107,124,94,0.12), rgba(143,160,126,0.08));
     border-color: var(--sage-light);
   }
- 
+
   .habit-checkbox {
     width: 26px; height: 26px;
     border-radius: 8px;
@@ -451,7 +451,7 @@
     border-color: var(--sage);
     color: white;
   }
- 
+
   .habit-label {
     font-family: 'Crimson Pro', serif;
     font-size: 0.9rem;
@@ -459,9 +459,9 @@
     line-height: 1.3;
   }
   .habit-item.done .habit-label { color: var(--sage); }
- 
+
   .habit-icon { font-size: 1.1rem; }
- 
+
   /* ─── REFLECTION CARD ─── */
   .reflection-card {
     background: linear-gradient(145deg, #fef8f0, #fdf2e0);
@@ -494,7 +494,7 @@
     margin-bottom: 14px;
     display: flex; align-items: center; gap: 8px;
   }
- 
+
   /* ─── BUTTONS ─── */
   .btn-row {
     display: flex;
@@ -502,7 +502,7 @@
     flex-wrap: wrap;
     margin-top: 28px;
   }
- 
+
   .btn {
     font-family: 'Crimson Pro', serif;
     font-size: 0.9rem;
@@ -515,7 +515,7 @@
     display: flex; align-items: center; gap: 8px;
     font-weight: 400;
   }
- 
+
   .btn-primary {
     background: linear-gradient(135deg, var(--gold-dark), var(--gold));
     color: white;
@@ -526,28 +526,28 @@
     box-shadow: 0 6px 22px var(--shadow-gold);
   }
   .btn-primary:active { transform: translateY(0); }
- 
+
   .btn-secondary {
     background: transparent;
     color: var(--ink-light);
     border: 1.5px solid var(--border);
   }
   .btn-secondary:hover { border-color: var(--gold-light); color: var(--gold-dark); background: rgba(201,149,58,0.05); }
- 
+
   .btn-danger {
     background: transparent;
     color: #a83232;
     border: 1.5px solid #ddb8b8;
   }
   .btn-danger:hover { background: rgba(168,50,50,0.06); border-color: #a83232; }
- 
+
   .btn-print {
     background: linear-gradient(135deg, var(--sage), var(--sage-light));
     color: white;
     box-shadow: 0 4px 16px rgba(107,124,94,0.3);
   }
   .btn-print:hover { transform: translateY(-1px); }
- 
+
   /* ─── SAVE TOAST ─── */
   .toast {
     position: fixed;
@@ -566,7 +566,7 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
- 
+
   /* ─── AUTO-SAVE INDICATOR ─── */
   .autosave-pill {
     position: fixed;
@@ -617,7 +617,7 @@
     0%,100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.4; transform: scale(0.6); }
   }
- 
+
   /* ─── ORNAMENTAL DIVIDER ─── */
   .ornament-divider {
     text-align: center;
@@ -628,20 +628,20 @@
     margin: 4px 0 20px;
     font-family: 'Playfair Display', serif;
   }
- 
+
   /* ─── PRAYER COLUMNS ─── */
   .prayer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
   }
- 
+
   .prayer-block {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
- 
+
   .prayer-prompt {
     font-family: 'Crimson Pro', serif;
     font-size: 0.78rem;
@@ -650,7 +650,7 @@
     color: var(--gold-dark);
     display: flex; align-items: center; gap: 6px;
   }
- 
+
   /* ─── ENCOURAGEMENT BOX ─── */
   .encourage-box {
     background: rgba(245,230,204,0.4);
@@ -664,7 +664,7 @@
     color: var(--ink-medium);
     line-height: 1.65;
   }
- 
+
   /* ─── FOOTER ─── */
   footer {
     text-align: center;
@@ -682,7 +682,7 @@
     margin-bottom: 8px;
     display: block;
   }
- 
+
   /* ─── ANIMATIONS ─── */
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-18px); }
@@ -692,7 +692,7 @@
     from { opacity: 0; transform: translateY(22px); }
     to   { opacity: 1; transform: translateY(0); }
   }
- 
+
   /* ─── PRINT STYLES ─── */
   @media print {
     .scripture-banner,
@@ -705,7 +705,7 @@
     .verse-card { background: #f5f5f5 !important; color: #333 !important; }
     .verse-text, .verse-ref, .verse-card-label { color: #333 !important; }
   }
- 
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 640px) {
     .section-card { padding: 22px 20px; }
@@ -717,11 +717,11 @@
     .btn-row { flex-direction: column; }
     .btn { width: 100%; justify-content: center; }
   }
- 
+
   @media (max-width: 480px) {
     .app-title { font-size: 1.75rem; }
   }
- 
+
   /* ─── TABS ─── */
   .tab-bar {
     display: flex;
@@ -755,7 +755,7 @@
   }
   .tab-pane { display: none; }
   .tab-pane.active { display: block; }
- 
+
   /* ─── HISTORY PANEL ─── */
   .history-header {
     display: flex;
@@ -793,7 +793,7 @@
     line-height: 1.8;
   }
   .history-empty-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; opacity: 0.5; }
- 
+
   /* Entry cards list */
   .entry-list {
     display: flex;
@@ -822,7 +822,7 @@
   }
   .entry-card:hover { border-color: var(--gold-light); box-shadow: 0 4px 20px var(--shadow-warm); transform: translateY(-1px); }
   .entry-card:hover::before { opacity: 1; }
- 
+
   .entry-card-top {
     display: flex;
     align-items: flex-start;
@@ -893,14 +893,14 @@
   }
   .entry-habit-pip.done { background: rgba(107,124,94,0.15); color: var(--sage); border: 1px solid rgba(107,124,94,0.25); }
   .entry-habit-pip.undone { background: rgba(200,180,150,0.15); color: #b8a070; border: 1px solid rgba(200,180,150,0.2); }
- 
+
   .entry-arrow {
     font-size: 1rem;
     color: var(--gold-light);
     flex-shrink: 0;
     margin-top: 2px;
   }
- 
+
   /* ─── ENTRY DETAIL MODAL ─── */
   .detail-modal {
     background: var(--warm-white);
@@ -918,7 +918,7 @@
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
   }
   .modal-overlay.open .detail-modal { transform: translateY(0) scale(1); }
- 
+
   .detail-header {
     background: linear-gradient(135deg, #2c1f0e, #4a3728);
     padding: 24px 28px 20px;
@@ -953,7 +953,7 @@
     transition: background 0.2s;
   }
   .detail-close:hover { background: rgba(255,255,255,0.18); }
- 
+
   .detail-body {
     overflow-y: auto;
     padding: 24px 28px 28px;
@@ -961,7 +961,7 @@
   }
   .detail-body::-webkit-scrollbar { width: 5px; }
   .detail-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
- 
+
   .detail-section { margin-bottom: 22px; }
   .detail-section:last-child { margin-bottom: 0; }
   .detail-section-label {
@@ -1015,7 +1015,7 @@
     letter-spacing: 0.04em;
   }
   .detail-load-btn:hover { background: rgba(201,149,58,0.08); border-color: var(--gold); }
- 
+
   /* ─── BIBLE READER ─── */
   .bible-reader-top {
     display: grid;
@@ -1065,7 +1065,7 @@
     width: 100%;
   }
   .bible-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,149,58,0.12); }
- 
+
   .chapter-nav {
     display: flex;
     align-items: center;
@@ -1107,7 +1107,7 @@
   }
   .ch-pill:hover { border-color: var(--gold-light); color: var(--gold-dark); background: rgba(201,149,58,0.07); }
   .ch-pill.active { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: white; border-color: transparent; box-shadow: 0 2px 8px var(--shadow-gold); }
- 
+
   .bible-book-header {
     background: linear-gradient(135deg, #2c1f0e, #4a3728);
     border-radius: 14px;
@@ -1132,7 +1132,7 @@
     color: var(--gold-light);
     opacity: 0.75;
   }
- 
+
   .bible-verses {
     display: flex;
     flex-direction: column;
@@ -1166,7 +1166,7 @@
     color: var(--ink-medium);
     line-height: 1.75;
   }
- 
+
   .bible-loading {
     text-align: center;
     padding: 40px 20px;
@@ -1185,7 +1185,7 @@
     margin-bottom: 12px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
- 
+
   .bible-use-btn {
     position: sticky;
     bottom: 0;
@@ -1211,7 +1211,7 @@
     box-shadow: 0 4px 16px var(--shadow-gold);
   }
   .bible-use-inner:hover { transform: translateY(-1px); }
- 
+
   .bible-prev-next {
     display: flex;
     gap: 10px;
@@ -1232,7 +1232,7 @@
   }
   .bible-nav-btn:hover { border-color: var(--gold-light); color: var(--gold-dark); background: rgba(201,149,58,0.05); }
   .bible-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
- 
+
   @media (max-width: 640px) {
     .bible-reader-top { grid-template-columns: 1fr 1fr; }
   }
@@ -1283,6 +1283,14 @@
     line-height: 1.7;
     font-style: italic;
   }
+  .testimony-author {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+  }
   .testimony-date {
     font-family: 'Crimson Pro', serif;
     font-size: 0.72rem;
@@ -1299,11 +1307,11 @@
     transition: opacity 0.2s;
   }
   .testimony-delete:hover { opacity: 1; color: #a83232; }
- 
+
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--cream); }
   ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 3px; }
- 
+
   /* ─── NAME SETUP SCREEN ─── */
   .name-setup-screen {
     position: fixed;
@@ -1323,7 +1331,7 @@
     opacity: 0;
     transition: opacity 0.6s ease;
   }
- 
+
   /* Floating particles */
   .name-setup-screen::before {
     content: '✦ ✦ ✦';
@@ -1349,7 +1357,7 @@
     0%,100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
     50% { opacity: 0.7; transform: translateX(-50%) translateY(-6px); }
   }
- 
+
   .name-setup-card {
     text-align: center;
     max-width: 420px;
@@ -1455,7 +1463,7 @@
     line-height: 1.7;
     animation: fadeDown 0.7s 0.8s ease both;
   }
- 
+
   /* ─── WELCOME MODAL ─── */
   .welcome-modal-overlay {
     position: fixed;
@@ -1612,7 +1620,7 @@
     background: none; border: none;
   }
   .welcome-skip:hover { opacity: 1; }
- 
+
   /* ─── PROFILE BUTTON ─── */
   .profile-btn {
     position: fixed;
@@ -1633,7 +1641,7 @@
     letter-spacing: 0;
   }
   .profile-btn:hover { transform: scale(1.08); box-shadow: 0 5px 20px var(--shadow-gold); }
- 
+
   /* ─── GREETING ─── */
   .header-greeting {
     font-family: 'Crimson Pro', serif;
@@ -1647,7 +1655,7 @@
     min-height: 1.4em;
   }
   .header-greeting.visible { opacity: 1; }
- 
+
   /* ─── PROFILE MODAL OVERLAY ─── */
   .modal-overlay {
     position: fixed;
@@ -1662,7 +1670,7 @@
     transition: opacity 0.3s ease;
   }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
- 
+
   .profile-modal {
     background: var(--warm-white);
     border: 1px solid var(--border);
@@ -1676,7 +1684,7 @@
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
   }
   .modal-overlay.open .profile-modal { transform: translateY(0) scale(1); }
- 
+
   .modal-top { position: absolute; top: 16px; right: 16px; }
   .modal-close {
     background: none; border: none;
@@ -1685,7 +1693,7 @@
     border-radius: 6px; transition: background 0.2s;
   }
   .modal-close:hover { background: rgba(201,149,58,0.1); color: var(--gold-dark); }
- 
+
   .modal-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.45rem; font-weight: 600;
@@ -1701,7 +1709,7 @@
     background: linear-gradient(to right, transparent, var(--border), transparent);
     margin: 20px 0;
   }
- 
+
   .avatar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
   .avatar-preview {
     width: 64px; height: 64px; border-radius: 50%;
@@ -1719,7 +1727,7 @@
   }
   .color-dot:hover { transform: scale(1.15); }
   .color-dot.active { border-color: var(--ink); transform: scale(1.15); }
- 
+
   .modal-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
   .modal-label {
     font-family: 'Crimson Pro', serif;
@@ -1745,7 +1753,7 @@
 </style>
 </head>
 <body>
- 
+
 <!-- Name Setup Screen -->
 <div class="name-setup-screen" id="nameSetupScreen">
   <div class="name-setup-card">
@@ -1777,7 +1785,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- Welcome Modal -->
 <div class="welcome-modal-overlay" id="welcomeModal">
   <div class="welcome-modal">
@@ -1813,12 +1821,12 @@
     </div>
   </div>
 </div>
- 
+
 <!-- Scripture Banner -->
 <div class="scripture-banner">
   "Your word is a lamp to my feet and a light to my path." — Psalm 119:105
 </div>
- 
+
 <!-- HEADER -->
 <div class="page-wrapper">
   <header>
@@ -1830,7 +1838,7 @@
       <span class="header-divider-icon">✦</span>
     </div>
   </header>
- 
+
   <!-- STREAK BAR -->
   <div class="streak-bar">
     <div class="streak-info">
@@ -1844,7 +1852,7 @@
       Begin your devotional journey today — one faithful day at a time.
     </div>
   </div>
- 
+
   <!-- TAB BAR -->
   <div class="tab-bar">
     <button class="tab-btn active" id="tabToday" onclick="switchTab('today')">
@@ -1857,10 +1865,10 @@
       🌿 Blessings & Reach
     </button>
   </div>
- 
+
   <!-- TODAY TAB -->
   <div class="tab-pane active" id="paneToday">
- 
+
   <!-- ══════════ BIBLE READING SECTION ══════════ -->
   <div class="section-card">
     <div class="section-header">
@@ -1868,7 +1876,7 @@
       <h2 class="section-title">Today's Bible Reading</h2>
       <span class="section-badge">Scripture</span>
     </div>
- 
+
     <!-- Verse of the Day Card -->
     <div class="verse-card">
       <div class="verse-card-label">✦ Verse of the Day</div>
@@ -1877,7 +1885,7 @@
       </p>
       <p class="verse-ref">— Jeremiah 29:11</p>
     </div>
- 
+
     <div class="form-row">
       <div class="form-group">
         <label>📅 Date</label>
@@ -1888,7 +1896,7 @@
         <input type="text" id="bibleRef" placeholder="e.g. John 15:1–17">
       </div>
     </div>
- 
+
     <div class="form-row single">
       <div class="form-group">
         <label>✍️ Bible Passage / Text</label>
@@ -1896,7 +1904,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- ══════════ DEVOTIONAL NOTES SECTION ══════════ -->
   <div class="section-card">
     <div class="section-header">
@@ -1904,14 +1912,14 @@
       <h2 class="section-title">Devotional Notes</h2>
       <span class="section-badge">Journal</span>
     </div>
- 
+
     <ul class="prompt-list">
       <li class="prompt-item">What is God teaching me through this passage today?</li>
       <li class="prompt-item">Which verse stood out to me the most, and why?</li>
       <li class="prompt-item">How can I apply this truth to my life right now?</li>
     </ul>
     <div class="ornament-divider">· · · ✦ · · ·</div>
- 
+
     <div class="form-group" style="margin-bottom:16px">
       <label>💡 What is God teaching me today?</label>
       <textarea id="godTeaching" class="large" placeholder="Write what you sense the Lord is revealing or speaking to your heart through this passage..."></textarea>
@@ -1925,7 +1933,7 @@
       <textarea id="application" placeholder="Write one specific, practical way you will live out what God has shown you today..."></textarea>
     </div>
   </div>
- 
+
   <!-- ══════════ PRAYER JOURNAL ══════════ -->
   <div class="section-card">
     <div class="section-header">
@@ -1933,7 +1941,7 @@
       <h2 class="section-title">Prayer Journal</h2>
       <span class="section-badge">Conversation with God</span>
     </div>
- 
+
     <div class="prayer-grid">
       <div class="prayer-block">
         <label class="prayer-prompt">🌸 Gratitude</label>
@@ -1951,12 +1959,12 @@
         <textarea id="surrender" class="prayer" placeholder="What am I releasing to God today? Lord, I surrender to You..."></textarea>
       </div>
     </div>
- 
+
     <div class="encourage-box">
       "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God." — Philippians 4:6
     </div>
   </div>
- 
+
   <!-- ══════════ REFLECTION ══════════ -->
   <div class="section-card">
     <div class="section-header">
@@ -1964,7 +1972,7 @@
       <h2 class="section-title">Daily Reflection</h2>
       <span class="section-badge">Most Important</span>
     </div>
- 
+
     <div class="reflection-card">
       <div class="reflection-glow"></div>
       <div class="reflection-title">
@@ -1975,7 +1983,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- ══════════ HABIT TRACKER ══════════ -->
   <div class="section-card">
     <div class="section-header">
@@ -1983,7 +1991,7 @@
       <h2 class="section-title">Daily Habit Tracker</h2>
       <span class="section-badge">Consistency</span>
     </div>
- 
+
     <div class="habit-grid" id="habitGrid">
       <div class="habit-item" data-habit="0" onclick="toggleHabit(0)">
         <div class="habit-checkbox" id="h0">✓</div>
@@ -2006,12 +2014,12 @@
         <div class="habit-label">I reflected on what God taught me</div>
       </div>
     </div>
- 
+
     <div class="encourage-box" style="margin-top:16px;">
       "Small daily disciplines, done faithfully over time, shape a life that honors God. You are building something eternal."
     </div>
   </div>
- 
+
   <!-- ══════════ ACTION BUTTONS ══════════ -->
   <div class="btn-row">
     <button class="btn btn-primary" onclick="saveEntry()">
@@ -2027,9 +2035,9 @@
       <span>🗑️</span> Clear / Reset
     </button>
   </div>
- 
+
   </div><!-- end #paneToday -->
- 
+
   <!-- HISTORY TAB -->
   <div class="tab-pane" id="paneHistory">
     <div class="section-card">
@@ -2041,12 +2049,12 @@
       <div id="entryList" class="entry-list"></div>
     </div>
   </div><!-- end #paneHistory -->
- 
+
   </div><!-- end #paneHistory -->
- 
+
   <!-- COMMUNITY TAB -->
   <div class="tab-pane" id="paneCommunity">
- 
+
     <!-- Share & Reach -->
     <div class="section-card" style="margin-bottom:20px;">
       <div class="section-header">
@@ -2084,7 +2092,7 @@
         That is a beautiful act of love. 🌱
       </div>
     </div>
- 
+
     <!-- Testimonies & Feedback -->
     <div class="section-card">
       <div class="section-header">
@@ -2105,9 +2113,9 @@
       </button>
       <div id="testimonyList"></div>
     </div>
- 
+
   </div><!-- end #paneCommunity -->
- 
+
   <!-- FOOTER -->
   <footer>
     <span class="footer-cross">✝</span>
@@ -2120,7 +2128,7 @@
     </span>
   </footer>
 </div>
- 
+
 <!-- Entry Detail Modal -->
 <div class="modal-overlay" id="detailModal" onclick="handleDetailOverlayClick(event)">
   <div class="detail-modal">
@@ -2132,45 +2140,45 @@
     <div class="detail-body" id="detailBody"></div>
   </div>
 </div>
- 
+
 <!-- Auto-save Indicator -->
 <div class="autosave-pill hidden" id="autosavePill">
   <div class="autosave-dot"></div>
   <span id="autosaveText">Saving…</span>
 </div>
- 
+
 <!-- Toast Notification -->
 <div class="toast" id="toast">
   <span>✦</span> <span id="toastMsg">Entry saved!</span>
 </div>
- 
+
 <script>
   // ── Utilities ──────────────────────────────────────────
   const $ = id => document.getElementById(id);
- 
+
   function showToast(msg, duration = 2800) {
     $('toastMsg').textContent = msg;
     const t = $('toast');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), duration);
   }
- 
+
   // ── Date ───────────────────────────────────────────────
   function setTodayDate() {
     const today = new Date().toISOString().split('T')[0];
     $('devotionalDate').value = today;
   }
- 
+
   // ── Habit Tracker ──────────────────────────────────────
   let habits = [false, false, false, false];
- 
+
   function toggleHabit(idx) {
     habits[idx] = !habits[idx];
     renderHabits();
     saveHabits();
     updateStreak();
   }
- 
+
   function renderHabits() {
     habits.forEach((done, i) => {
       const item = document.querySelector(`[data-habit="${i}"]`);
@@ -2184,19 +2192,19 @@
       }
     });
   }
- 
+
   function saveHabits() {
     const today = new Date().toISOString().split('T')[0];
     localStorage.setItem(`habits_${today}`, JSON.stringify(habits));
   }
- 
+
   function loadHabits() {
     const today = new Date().toISOString().split('T')[0];
     const saved = localStorage.getItem(`habits_${today}`);
     if (saved) habits = JSON.parse(saved);
     renderHabits();
   }
- 
+
   // ── Streak ─────────────────────────────────────────────
   function updateStreak() {
     const streak = calculateStreak();
@@ -2218,7 +2226,7 @@
     const idx = Math.min(streak, messages.length - 1);
     $('streakMessage').textContent = messages[streak >= 30 ? 11 : idx];
   }
- 
+
   function calculateStreak() {
     let streak = 0;
     const today = new Date();
@@ -2237,24 +2245,24 @@
     }
     return streak;
   }
- 
+
   // ── Name Setup Screen ──────────────────────────────────
   function toggleNameBtn() {
     const val = $('nameSetupInput').value.trim();
     $('nameSetupBtn').disabled = val.length === 0;
   }
- 
+
   function submitName() {
     const name = $('nameSetupInput').value.trim();
     if (!name) return;
- 
+
     // Save name to profile
     const profile = loadProfile();
     profile.name = name;
     if (!profile.color) profile.color = '#9e7228';
     localStorage.setItem('devotional_profile', JSON.stringify(profile));
     applyProfile(profile);
- 
+
     // Close name screen with fade
     const screen = $('nameSetupScreen');
     screen.classList.add('closing');
@@ -2264,7 +2272,7 @@
       setTimeout(() => showWelcomeModal(true), 200);
     }, 600);
   }
- 
+
   function checkFirstTime() {
     const profile = loadProfile();
     if (!profile.name) {
@@ -2275,7 +2283,7 @@
       showWelcomeModal(false);
     }
   }
- 
+
   // ── Welcome Modal ──────────────────────────────────────
   const WELCOME_VERSES = [
     { text: "This is the day the LORD has made; let us rejoice and be glad in it.", ref: "— Psalm 118:24" },
@@ -2286,43 +2294,43 @@
     { text: "Your word is a lamp to my feet and a light to my path.", ref: "— Psalm 119:105" },
     { text: "Trust in the LORD with all your heart and lean not on your own understanding.", ref: "— Proverbs 3:5" },
   ];
- 
+
   function showWelcomeModal(force = false) {
     const today    = new Date().toISOString().split('T')[0];
     const lastSeen = localStorage.getItem('devotional_welcome_shown');
     if (!force && lastSeen === today) return;
- 
+
     // Pick a verse based on day of year
     const dayIdx = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
     const v = WELCOME_VERSES[dayIdx % WELCOME_VERSES.length];
- 
+
     $('welcomeVerse').textContent    = v.text;
     $('welcomeVerseRef').textContent = v.ref;
- 
+
     $('welcomeDate').textContent = new Date().toLocaleDateString('en-US', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
- 
+
     const profile = loadProfile();
     const hour    = new Date().getHours();
     const time    = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
     $('welcomeTitle').innerHTML = profile.name
       ? `${time}, <span class="welcome-name-highlight">${profile.name}.</span>`
       : `${time}, beloved.`;
- 
+
     setTimeout(() => $('welcomeModal').classList.add('open'), 400);
   }
- 
+
   function closeWelcomeModal() {
     $('welcomeModal').classList.remove('open');
     const today = new Date().toISOString().split('T')[0];
     localStorage.setItem('devotional_welcome_shown', today);
   }
- 
+
   // ── Profile / Personalization ──────────────────────────
   const AVATAR_COLORS = ['#9e7228','#6b7c5e','#5c6e8a','#8a5c6e','#6e5c8a','#8a6e3a','#3a6e6e','#4a4a4a'];
   let selectedColor = '#9e7228';
- 
+
   function openProfileModal() {
     const profile = loadProfile();
     if (profile.name)   $('profileName').value   = profile.name;
@@ -2332,34 +2340,34 @@
     updateAvatarPreview(profile.name || '', selectedColor);
     $('profileModal').classList.add('open');
   }
- 
+
   function closeProfileModal() {
     $('profileModal').classList.remove('open');
   }
- 
+
   function handleOverlayClick(e) {
     if (e.target === $('profileModal')) closeProfileModal();
   }
- 
+
   function selectColor(dot) {
     document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
     dot.classList.add('active');
     selectedColor = dot.dataset.color;
     updateAvatarPreview($('profileName').value, selectedColor);
   }
- 
+
   function syncColorDots() {
     document.querySelectorAll('.color-dot').forEach(d => {
       d.classList.toggle('active', d.dataset.color === selectedColor);
     });
   }
- 
+
   function updateAvatarPreview(name, color) {
     const el = $('avatarPreview');
     el.style.background = `linear-gradient(135deg, ${color}, ${color}cc)`;
     el.textContent = name ? name.trim()[0].toUpperCase() : '✦';
   }
- 
+
   // Live preview as user types name
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
@@ -2369,7 +2377,7 @@
       });
     }, 100);
   });
- 
+
   function saveProfile() {
     const profile = {
       name:   $('profileName').value.trim(),
@@ -2382,23 +2390,23 @@
     closeProfileModal();
     showToast('✦  Profile saved — welcome, ' + (profile.name || 'friend') + '!');
   }
- 
+
   function loadProfile() {
     const saved = localStorage.getItem('devotional_profile');
     return saved ? JSON.parse(saved) : {};
   }
- 
+
   function getTimeGreeting() {
     const h = new Date().getHours();
     if (h < 12) return 'Good morning';
     if (h < 17) return 'Good afternoon';
     return 'Good evening';
   }
- 
+
   function applyProfile(profile) {
     const greeting = $('headerGreeting');
     const subtitle = $('appSubtitle');
- 
+
     if (profile.name) {
       greeting.textContent = `${getTimeGreeting()}, ${profile.name} ✦`;
       greeting.classList.add('visible');
@@ -2406,18 +2414,18 @@
       greeting.textContent = '';
       greeting.classList.remove('visible');
     }
- 
+
     if (profile.motto) {
       subtitle.textContent = `"${profile.motto}"`;
     } else {
       subtitle.textContent = 'Read the Bible, reflect, pray, and grow daily with God';
     }
   }
- 
+
   // ── Auto-Save ──────────────────────────────────────────
   let autoSaveTimer = null;
   let hideTimer = null;
- 
+
   function showAutosavePill(state) {
     const pill = $('autosavePill');
     const text = $('autosaveText');
@@ -2433,7 +2441,7 @@
       }, 2500);
     }
   }
- 
+
   function autoSave() {
     showAutosavePill('saving');
     clearTimeout(autoSaveTimer);
@@ -2448,7 +2456,7 @@
       showAutosavePill('saved');
     }, 1200);
   }
- 
+
   function initAutoSave() {
     FIELDS.forEach(fieldId => {
       const el = $(fieldId);
@@ -2456,7 +2464,7 @@
     });
   }
   const FIELDS = ['devotionalDate','bibleRef','biblePassage','godTeaching','standoutVerse','application','gratitude','prayerRequests','surrender','reflection'];
- 
+
   function saveEntry() {
     const today = $('devotionalDate').value || new Date().toISOString().split('T')[0];
     const entry = {};
@@ -2467,7 +2475,7 @@
     updateStreak();
     showToast('✦  Entry saved — well done! Keep seeking Him daily.');
   }
- 
+
   function loadEntry() {
     const today = $('devotionalDate').value || new Date().toISOString().split('T')[0];
     const saved = localStorage.getItem(`devotional_${today}`);
@@ -2481,7 +2489,7 @@
     updateStreak();
     showToast('✦  Entry loaded successfully!');
   }
- 
+
   function clearEntry() {
     if (!confirm('Clear all fields for today? Your saved entry will remain.')) return;
     FIELDS.forEach(f => { if (f !== 'devotionalDate') $(f).value = ''; });
@@ -2489,7 +2497,7 @@
     renderHabits();
     showToast('Fields cleared. Your saved entry is still safe.');
   }
- 
+
   // ── Verses of the Day Rotation ─────────────────────────
   const verses = [
     { text: "For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "— Jeremiah 29:11" },
@@ -2500,14 +2508,14 @@
     { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", ref: "— Romans 8:28" },
     { text: "The LORD is my shepherd, I lack nothing.", ref: "— Psalm 23:1" },
   ];
- 
+
   function rotateVerse() {
     const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
     const v = verses[dayOfYear % verses.length];
     $('verseOfDay').textContent = v.text;
     document.querySelector('.verse-ref').textContent = v.ref;
   }
- 
+
   // ── Auto-load today's entry on open ───────────────────
   function autoLoad() {
     const today = new Date().toISOString().split('T')[0];
@@ -2518,7 +2526,7 @@
       if (entry.habits) { habits = entry.habits; renderHabits(); }
     }
   }
- 
+
   // ── Tab Switching ──────────────────────────────────────
   function switchTab(tab) {
     ['today','history','dashboard'].forEach(t => {
@@ -2530,7 +2538,7 @@
     if (tab === 'history')   renderHistory();
     if (tab === 'dashboard') renderDashboard();
   }
- 
+
   // ── Tab Switching ──────────────────────────────────────
   function switchTab(tab) {
     ['today','history','community'].forEach(t => {
@@ -2542,7 +2550,7 @@
     if (tab === 'history')   renderHistory();
     if (tab === 'community') renderTestimonies();
   }
- 
+
   // ── Community Tab ──────────────────────────────────────
   function copyAppLink() {
     navigator.clipboard.writeText('https://devotional-notes-rdalisay.netlify.app')
@@ -2552,13 +2560,16 @@
         showToast('✦  Link copied! Share it with someone today.');
       });
   }
- 
+
   function saveTestimony() {
     const text = $('testimonyInput').value.trim();
     if (!text) return;
+    const profile = loadProfile();
+    const name = profile.name || 'Anonymous';
     const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
     testimonies.unshift({
       text,
+      name,
       date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }),
       id: Date.now()
     });
@@ -2567,31 +2578,36 @@
     renderTestimonies();
     showToast('✦  Blessing saved! Every testimony matters. 🙏');
   }
- 
+
   function deleteTestimony(id) {
     let testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
     testimonies = testimonies.filter(t => t.id !== id);
     localStorage.setItem('dash_testimonies', JSON.stringify(testimonies));
     renderTestimonies();
   }
- 
+
   function renderTestimonies() {
     const list = $('testimonyList');
     if (!list) return;
     const testimonies = JSON.parse(localStorage.getItem('dash_testimonies') || '[]');
+    const currentName = (loadProfile().name || '').trim();
     if (!testimonies.length) {
       list.innerHTML = `<div style="font-family:'Crimson Pro',serif; font-style:italic; color:var(--ink-light); font-size:0.92rem; opacity:0.65; text-align:center; padding:20px 0;">
         No testimonies yet — every blessing is worth recording. 🌿</div>`;
       return;
     }
-    list.innerHTML = testimonies.map(t => `
+    list.innerHTML = testimonies.map(t => {
+      const isOwner = currentName && currentName === t.name;
+      return `
       <div class="testimony-item">
-        <button class="testimony-delete" onclick="deleteTestimony(${t.id})">✕</button>
+        ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
+        <div class="testimony-author">✦ ${t.name || 'Anonymous'}</div>
         <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
         <div class="testimony-date">${t.date}</div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
- 
+
   // ── Tab Switching (old, replaced above) ───────────────
   let bibleInitialized  = false;
   let currentLang       = 'kjv';
@@ -2599,7 +2615,7 @@
   let currentChapter    = 1;
   let selectedVerseText = '';
   let selectedVerseRef  = '';
- 
+
   const BIBLE_BOOKS = [
     {n:'Genesis',c:50},{n:'Exodus',c:40},{n:'Leviticus',c:27},{n:'Numbers',c:36},
     {n:'Deuteronomy',c:34},{n:'Joshua',c:24},{n:'Judges',c:21},{n:'Ruth',c:4},
@@ -2619,9 +2635,9 @@
     {n:'James',c:5},{n:'1 Peter',c:5},{n:'2 Peter',c:3},{n:'1 John',c:5},
     {n:'2 John',c:1},{n:'3 John',c:1},{n:'Jude',c:1},{n:'Revelation',c:22}
   ];
- 
+
   const LANG_LABELS = { kjv: 'KJV', tagalog: 'Ang Biblia' };
- 
+
   function initBibleReader() {
     bibleInitialized = true;
     // Populate book select
@@ -2635,14 +2651,14 @@
     onBookChange();
     loadBibleChapter();
   }
- 
+
   function onBookChange() {
     currentBookIdx = parseInt($('bibleBook').value) || 0;
     currentChapter = 1;
     buildChapterPills();
     buildChapterSelect();
   }
- 
+
   function buildChapterPills() {
     const book  = BIBLE_BOOKS[currentBookIdx];
     const pills = $('chapterPills');
@@ -2655,7 +2671,7 @@
       pills.appendChild(btn);
     }
   }
- 
+
   function buildChapterSelect() {
     const book = BIBLE_BOOKS[currentBookIdx];
     const sel  = $('bibleChapter');
@@ -2668,7 +2684,7 @@
       sel.appendChild(opt);
     }
   }
- 
+
   function syncChapterUI() {
     // Sync select
     $('bibleChapter').value = currentChapter;
@@ -2683,38 +2699,38 @@
     $('btnPrevChapter').disabled = currentChapter <= 1;
     $('btnNextChapter').disabled = currentChapter >= BIBLE_BOOKS[currentBookIdx].c;
   }
- 
+
   async function loadBibleChapter() {
     currentBookIdx = parseInt($('bibleBook').value) || currentBookIdx;
     currentChapter = parseInt($('bibleChapter').value) || currentChapter;
     syncChapterUI();
- 
+
     const book = BIBLE_BOOKS[currentBookIdx];
     const content = $('bibleContent');
     const header  = $('bibleBookHeader');
- 
+
     content.innerHTML = `<div class="bible-loading"><div class="bible-loading-spinner"></div><br>Loading ${book.n} ${currentChapter}…</div>`;
     header.style.display = 'none';
     selectedVerseText = '';
     selectedVerseRef  = '';
     $('bibleUseBtn').classList.remove('visible');
- 
+
     try {
       const url = `https://getbible.net/v2/${currentLang}/${currentBookIdx + 1}/${currentChapter}.json`;
       const res  = await fetch(url);
       if (!res.ok) throw new Error('Network error');
       const data = await res.json();
- 
+
       // Header
       $('bibleHeaderMeta').textContent = `${book.n} · Chapter ${currentChapter}`;
       $('bibleHeaderTitle').textContent = currentLang === 'kjv' ? book.n : getTagalogBookName(currentBookIdx);
       $('bibleHeaderTranslation').textContent = LANG_LABELS[currentLang];
       header.style.display = 'flex';
- 
+
       // Verses
       const verses = Object.values(data.verses || {});
       if (!verses.length) throw new Error('No verses');
- 
+
       content.innerHTML = `<div class="bible-verses" id="versesList"></div>`;
       const list = $('versesList');
       verses.forEach(v => {
@@ -2726,7 +2742,7 @@
         row.onclick = () => selectVerse(row, v, book.n);
         list.appendChild(row);
       });
- 
+
     } catch(e) {
       content.innerHTML = `<div class="bible-loading">
         ⚠️ Could not load this passage.<br>
@@ -2734,7 +2750,7 @@
       </div>`;
     }
   }
- 
+
   function selectVerse(row, v, bookName) {
     document.querySelectorAll('.bible-verse-row').forEach(r => r.classList.remove('selected'));
     row.classList.add('selected');
@@ -2742,7 +2758,7 @@
     selectedVerseRef  = `${bookName} ${currentChapter}:${v.verse}`;
     $('bibleUseBtn').classList.add('visible');
   }
- 
+
   function useSelectedVerse() {
     if (!selectedVerseText) return;
     // Insert into the standout verse field and bible reference
@@ -2752,7 +2768,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     showToast(`✦  ${selectedVerseRef} added to your devotional notes!`);
   }
- 
+
   function navigateChapter(dir) {
     const book = BIBLE_BOOKS[currentBookIdx];
     const next = currentChapter + dir;
@@ -2761,7 +2777,7 @@
     $('bibleChapter').value = currentChapter;
     loadBibleChapter();
   }
- 
+
   function switchLang(lang) {
     currentLang = lang;
     $('langKJV').classList.toggle('active', lang === 'kjv');
@@ -2769,7 +2785,7 @@
     $('bibleTranslationBadge').textContent = LANG_LABELS[lang];
     loadBibleChapter();
   }
- 
+
   // Tagalog book names (Ang Biblia)
   const TAGALOG_BOOKS = [
     'Genesis','Exodo','Levitico','Mga Bilang','Deuteronomio','Josue','Mga Hukom',
@@ -2784,12 +2800,12 @@
     '3 Juan','Judas','Apocalipsis'
   ];
   function getTagalogBookName(idx) { return TAGALOG_BOOKS[idx] || BIBLE_BOOKS[idx].n; }
- 
+
   // ── Tab Switching (old, replaced above) ───────────────
- 
+
   // ── History ────────────────────────────────────────────
   const HABIT_LABELS = ['📖 Bible read','✍️ Notes written','🙏 Prayer','💛 Reflection'];
- 
+
   function getAllEntries() {
     const entries = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -2806,7 +2822,7 @@
     }
     return entries.sort((a, b) => b.date.localeCompare(a.date));
   }
- 
+
   function formatDateNice(dateStr) {
     const d = new Date(dateStr + 'T00:00:00');
     return {
@@ -2816,7 +2832,7 @@
       full: d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
     };
   }
- 
+
   function renderHistory() {
     const query = ($('historySearch').value || '').toLowerCase();
     let entries = getAllEntries();
@@ -2830,10 +2846,10 @@
         e.date.includes(query)
       );
     }
- 
+
     $('historyCount').textContent = `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'}`;
     const list = $('entryList');
- 
+
     if (entries.length === 0) {
       list.innerHTML = `<div class="history-empty">
         <span class="history-empty-icon">📜</span>
@@ -2841,7 +2857,7 @@
       </div>`;
       return;
     }
- 
+
     list.innerHTML = entries.map(e => {
       const fd = formatDateNice(e.date);
       const preview = e.reflection || e.godTeaching || e.biblePassage || '';
@@ -2864,17 +2880,17 @@
       </div>`;
     }).join('');
   }
- 
+
   // ── Entry Detail Modal ─────────────────────────────────
   function openDetailModal(dateStr) {
     const saved = localStorage.getItem(`devotional_${dateStr}`);
     if (!saved) return;
     const e = JSON.parse(saved);
     const fd = formatDateNice(dateStr);
- 
+
     $('detailDate').textContent = fd.full;
     $('detailRef').textContent  = e.bibleRef || 'No Bible reference recorded';
- 
+
     const sections = [
       e.biblePassage ? { label: '📜 Bible Passage', text: e.biblePassage, passage: true } : null,
       e.godTeaching  ? { label: '💡 What God Taught Me', text: e.godTeaching }   : null,
@@ -2884,13 +2900,13 @@
       (e.gratitude || e.prayerRequests || e.surrender) ? { label: '🙏 Prayer Journal', prayer: true,
         gratitude: e.gratitude, requests: e.prayerRequests, surrender: e.surrender } : null,
     ].filter(Boolean);
- 
+
     const habitsHtml = e.habits ? `<div class="detail-section">
       <div class="detail-section-label">☀️ Habits Completed</div>
       <div class="detail-habits-row">
         ${e.habits.map((done, i) => `<span class="entry-habit-pip ${done ? 'done' : 'undone'}">${HABIT_LABELS[i]}</span>`).join('')}
       </div></div>` : '';
- 
+
     const sectionsHtml = sections.map(s => {
       if (s.prayer) {
         const rows = [
@@ -2905,18 +2921,18 @@
         <div class="${s.passage ? 'detail-passage' : 'detail-text'}">${s.text.replace(/</g,'&lt;')}</div>
       </div>`;
     }).join('');
- 
+
     $('detailBody').innerHTML = sectionsHtml + habitsHtml + `
       <button class="detail-load-btn" onclick="loadEntryByDate('${dateStr}')">
         ↩ Load this entry into the editor
       </button>`;
- 
+
     $('detailModal').classList.add('open');
   }
- 
+
   function closeDetailModal() { $('detailModal').classList.remove('open'); }
   function handleDetailOverlayClick(e) { if (e.target === $('detailModal')) closeDetailModal(); }
- 
+
   function loadEntryByDate(dateStr) {
     const saved = localStorage.getItem(`devotional_${dateStr}`);
     if (!saved) return;
@@ -2928,7 +2944,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     showToast(`✦  Entry for ${formatDateNice(dateStr).full} loaded.`);
   }
- 
+
   // ── Init ───────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     setTodayDate();
