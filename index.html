@@ -4,6 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Devotional Notes</title>
+
+<!-- PWA Meta Tags -->
+<meta name="application-name" content="Daily Devotional Notes">
+<meta name="description" content="A personal daily Bible devotional journal. Read, reflect, pray, and grow with God every day.">
+<meta name="theme-color" content="#2c1f0e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Devotional Notes">
+<meta name="msapplication-TileColor" content="#2c1f0e">
+<meta name="author" content="R. Dalisay">
+
+<!-- Open Graph (for sharing) -->
+<meta property="og:title" content="Daily Devotional Notes">
+<meta property="og:description" content="A personal daily Bible devotional journal. Read, reflect, pray, and grow with God every day.">
+<meta property="og:url" content="https://devotional-notes-rdalisay.netlify.app">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_PH">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WE1N7RWNNX"></script>
 <script>
@@ -2360,7 +2382,7 @@
       DAILY DEVOTIONAL NOTES · YOUR SACRED STUDY JOURNAL
     </span>
     <span style="display:block; margin-top:14px; font-size:0.82rem; color:var(--gold-dark); letter-spacing:0.08em; font-style:normal; opacity:0.85;">
-      Crafted with love & faith by <strong style="font-family:'Playfair Display',serif; font-weight:600;">R. Dalisay</strong>
+      Crafted with love & faith by <strong style="font-family:'Playfair Display',serif; font-weight:600;">Marikit</strong>
     </span>
   </footer>
 </div>
@@ -3772,6 +3794,11 @@
     applyProfile(profile);
     if (profile.color) { selectedColor = profile.color; }
     checkFirstTime();
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .catch(() => {}); // silently fail if not available
+    }
   });
 </script>
 </body>
