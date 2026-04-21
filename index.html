@@ -3466,6 +3466,21 @@
     }
   }
 
+  // ── Testimony Avatar Colors ────────────────────────────
+  const AVATAR_PALETTE = [
+    '#9e7228','#6b7c5e','#5c6e8a','#8a5c6e',
+    '#6e5c8a','#8a6e3a','#3a6e6e','#7a5c40',
+    '#5c7a6e','#6e7a5c','#8a5c3a','#4a6e8a'
+  ];
+
+  function getAvatarColor(token) {
+    let hash = 0;
+    for (let i = 0; i < token.length; i++) {
+      hash = token.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return AVATAR_PALETTE[Math.abs(hash) % AVATAR_PALETTE.length];
+  }
+
   function displayTestimonies(testimonies, list) {
     const myToken    = getUserToken();
     const totalPages = Math.ceil(totalTestimonies / PAGE_SIZE);
@@ -3477,12 +3492,22 @@
     }
 
     const items = testimonies.map(t => {
-      const isOwner = t.user_token === myToken;
+      const isOwner   = t.user_token === myToken;
+      const color     = getAvatarColor(t.user_token || t.id.toString());
+      const avatar    = `<div style="
+        width:36px; height:36px; border-radius:50%;
+        background:${color};
+        flex-shrink:0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      "></div>`;
       return `
-      <div class="testimony-item">
-        ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
-        <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
-        <div class="testimony-date">${t.date}</div>
+      <div class="testimony-item" style="display:flex; align-items:flex-start; gap:12px;">
+        ${avatar}
+        <div style="flex:1; min-width:0;">
+          ${isOwner ? `<button class="testimony-delete" onclick="deleteTestimony(${t.id})" title="Delete your testimony">✕</button>` : ''}
+          <div class="testimony-text">"${t.text.replace(/</g,'&lt;')}"</div>
+          <div class="testimony-date">${t.date}</div>
+        </div>
       </div>`;
     }).join('');
 
