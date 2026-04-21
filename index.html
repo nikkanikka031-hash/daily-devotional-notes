@@ -2436,9 +2436,16 @@
   }
 
   // ── Date ───────────────────────────────────────────────
+  function getLocalDateStr() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   function setTodayDate() {
-    const today = new Date().toISOString().split('T')[0];
-    $('devotionalDate').value = today;
+    $('devotionalDate').value = getLocalDateStr();
   }
 
   // ── Habit Tracker ──────────────────────────────────────
@@ -2467,13 +2474,13 @@
 
   function saveHabits() {
     const prefix = getUserPrefix();
-    const today  = new Date().toISOString().split('T')[0];
+    const today  = getLocalDateStr();
     localStorage.setItem(`habits_${prefix}_${today}`, JSON.stringify(habits));
   }
 
   function loadHabits() {
     const prefix = getUserPrefix();
-    const today  = new Date().toISOString().split('T')[0];
+    const today  = getLocalDateStr();
     const saved  = localStorage.getItem(`habits_${prefix}_${today}`);
     if (saved) habits = JSON.parse(saved);
     renderHabits();
@@ -2602,7 +2609,10 @@
     for (let i = 0; i < 365; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
+      const y = d.getFullYear();
+      const mo = String(d.getMonth() + 1).padStart(2, '0');
+      const dy = String(d.getDate()).padStart(2, '0');
+      const dateStr = `${y}-${mo}-${dy}`;
       // Check if a journal entry was saved for this day
       const key = `devotional_${prefix}_${dateStr}`;
       const data = localStorage.getItem(key);
@@ -2680,7 +2690,7 @@
   ];
 
   function showWelcomeModal(force = false) {
-    const today    = new Date().toISOString().split('T')[0];
+    const today    = getLocalDateStr();
     const lastSeen = localStorage.getItem('devotional_welcome_shown');
     if (!force && lastSeen === today) return;
 
@@ -2707,7 +2717,7 @@
 
   function closeWelcomeModal() {
     $('welcomeModal').classList.remove('open');
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateStr();
     localStorage.setItem('devotional_welcome_shown', today);
   }
 
@@ -2831,7 +2841,7 @@
     clearTimeout(autoSaveTimer);
     autoSaveTimer = setTimeout(() => {
       const prefix = getUserPrefix();
-      const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+      const today  = $('devotionalDate').value || getLocalDateStr();
       const entry  = {};
       FIELDS.forEach(f => entry[f] = $(f).value);
       entry.habits = habits;
@@ -2859,7 +2869,7 @@
 
   function saveEntry() {
     const prefix = getUserPrefix();
-    const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+    const today  = $('devotionalDate').value || getLocalDateStr();
     const entry  = {};
     FIELDS.forEach(f => entry[f] = $(f).value);
     entry.habits = habits;
@@ -2871,7 +2881,7 @@
 
   function loadEntry() {
     const prefix = getUserPrefix();
-    const today  = $('devotionalDate').value || new Date().toISOString().split('T')[0];
+    const today  = $('devotionalDate').value || getLocalDateStr();
     const saved  = localStorage.getItem(`devotional_${prefix}_${today}`);
     if (!saved) { showToast('No saved entry found for this date.'); return; }
     const entry = JSON.parse(saved);
@@ -3256,7 +3266,7 @@
   // ── Auto-load today's entry on open ───────────────────
   function autoLoad() {
     const prefix = getUserPrefix();
-    const today  = new Date().toISOString().split('T')[0];
+    const today  = getLocalDateStr();
     const saved  = localStorage.getItem(`devotional_${prefix}_${today}`);
     if (saved) {
       const entry = JSON.parse(saved);
@@ -3345,12 +3355,12 @@
   }
 
   function hasSubmittedTodayTestimony() {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateStr();
     return localStorage.getItem(`testimony_submitted_${today}`) === '1';
   }
 
   function markTestimonySubmittedToday() {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateStr();
     localStorage.setItem(`testimony_submitted_${today}`, '1');
   }
 
