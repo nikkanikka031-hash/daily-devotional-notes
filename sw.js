@@ -1,7 +1,8 @@
 // Daily Devotional Notes — Service Worker
-// Version 1.1 — Marikit
+// Marikit — auto-updates on every deploy
 
-const CACHE_NAME = 'devotional-notes-v2';
+const CACHE_VERSION = Date.now();
+const CACHE_NAME = `devotional-notes-${CACHE_VERSION}`;
 const BASE = '/daily-devotional-notes';
 const ASSETS = [
   `${BASE}/`,
@@ -33,14 +34,14 @@ self.addEventListener('fetch', event => {
   if (url.origin !== location.origin) return;
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).then(response => {
-        if (response && response.status === 200) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        }
-        return response;
-      });
-    }).catch(() => caches.match(`${BASE}/index.html`))
+    fetch(event.request).then(response => {
+      if (response && response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+      }
+      return response;
+    }).catch(() => caches.match(event.request)
+      .then(cached => cached || caches.match(`${BASE}/index.html`))
+    )
   );
 });
